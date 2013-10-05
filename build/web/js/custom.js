@@ -155,8 +155,8 @@ function atualizaGrafico() {
 	};
 	$('#grafico-container').html('');
 	var chart = new CanvasJS.Chart("grafico-container", {
-		zoomEnabled: true,
-		panEnabled: true,
+		/*zoomEnabled: true,
+		panEnabled: true,*/
 		legend: {
 			fontSize: 13,
 			fontFamily: "Arial",
@@ -170,7 +170,7 @@ function atualizaGrafico() {
 		toolTip: {
 			shared: true,
 			content: function(e){
-				var str = "<strong class='text-info'>Tempo: " + e.entries[0].dataPoint.x + "</strong><br />";
+				var str = "<strong class='text-info'>Passo: " + e.entries[0].dataPoint.x.toFixed(2) + "</strong><br />";
 				var soma_bloco = 0;
 				for (var i = 0; i < e.entries.length; i++){
 					//var  temp = e.entries[i].dataSeries.name + ": <strong>" +  e.entries[i].dataPoint.y + "</strong> - Soma: " + e.entries[i].dataSeries.label + "<br />";

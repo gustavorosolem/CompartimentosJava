@@ -16,7 +16,7 @@ input { text-align: center; }
 #bloco-modelo { display: none; }
 #container-blocos { height: 100%; }
 #container-blocos .bloco { position: absolute; width: 140px; /*height: 110px;*/ padding: 10px; background: #FFF; border: 1px solid #000; top: 0; left: 0; }
-#container-blocos .bloco .glyphicon { display: block; }
+#container-blocos .bloco .glyphicon { display: block; top: 0; }
 #container-blocos .bloco .drag { float: right; padding: 10px; margin: -10px -10px 0 0; cursor: move; }
 #container-blocos .bloco .start { float: left; padding: 10px; margin: -10px 0 0 -10px; cursor: move; }
 #container-blocos .bloco .close { position: absolute; bottom: 0; right: 0; }

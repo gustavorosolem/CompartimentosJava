@@ -14,54 +14,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Álvaro Neto
- */
-public class Pegadados2 extends HttpServlet {
+public class PegaDados extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-           String passo = request.getParameter("passo");
-           System.out.println("passo = \t"+passo);
-           out.println("passo = \t"+passo);
+            String passo = request.getParameter("passo");
+            System.out.println("passo = \t"+passo);
+            out.println("passo = \t"+passo);
            
-           String periodo = request.getParameter("periodo");
-           System.out.println("periodo = \t"+periodo);
-           out.println("periodo = \t"+periodo);
+            String periodo = request.getParameter("periodo");
+            System.out.println("periodo = \t"+periodo);
+             out.println("periodo = \t"+periodo);
            
-           String t = request.getParameter("t");
-           System.out.println("t = \t"+t);
-           out.println("t = \t"+t);
+            String t = request.getParameter("t");
+            System.out.println("t = \t"+t);
+            out.println("t = \t"+t);
            
-           String metodo = request.getParameter("metodo");
-           System.out.println("metodo = \t"+metodo);
-           out.println("metodo = \t"+metodo);         
+            String metodo = request.getParameter("metodo");
+            System.out.println("metodo = \t"+metodo);
+            out.println("metodo = \t"+metodo);         
                       
            
-           double pass = Double.valueOf(passo);
-           double temp = Double.valueOf(periodo);
-           double te = Double.valueOf(t);
-           double met = Double.valueOf(metodo);
+            double pass = Double.valueOf(passo);
+            double temp = Double.valueOf(periodo);
+            double te = Double.valueOf(t);
+            double met = Double.valueOf(metodo);
            
             Conexao con = new Conexao(pass,temp,te,met);     
-                     
-                       
+
         } catch (SQLException ex) {
-            Logger.getLogger(Pegadados2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PegaDados.class.getName()).log(Level.SEVERE, null, ex);
             
         } finally {            
             out.close();

@@ -15,9 +15,9 @@
                 <div class="well sidebar-nav">
                     <h1>Compartimentos</h1>
                     <p class="config-tit">Configurações gerais:</p>
-                    <form action="Pegadados2" method="get" class="form-horizontal">
+                    <form action="PegaDados" method="get" class="form-horizontal">
                         <div class="form-group">
-                            <label for="t" class="col-lg-3 control-label">Metodo</label>
+                            <label for="t" class="col-lg-3 control-label">Método</label>
                             <div class="col-lg-5">
                                 <select class="input-sm form-control" id="metodo" name="metodo">
                                     <option value="1">RKF</option>
@@ -45,9 +45,9 @@
                         </div>
                         <div class="form-group">
                             <span class="col-lg-3 control-label"></span>
-                            <input type="submit" value="enviar">
-                            <div class="col-lg-5">
+                            <div class="col-lg-8">
                                 <a href="javascript:;" onclick="atualizaGrafico()" class="btn btn-success btn-sm">Calcular</a>
+                                <input type="submit" value="Salvar" class="btn btn-success btn-sm" />
                             </div>
                         </div>
                     </form>

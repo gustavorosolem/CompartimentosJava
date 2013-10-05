@@ -8,17 +8,12 @@ import java.sql.Statement;
 
 public class GerenciadorConexao {
 
-    private static final String JDBC_DRIVER = "org.gjt.mm.mysql.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/compartimento";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "221205";
-
     public static Connection getConection()
             throws SQLException {
         Connection conn = null;
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Compartimento", "root", "221205");
+            conn = DriverManager.getConnection("jdbc:mysql://treewy.com:3306/treewyco_testes", "treewyco_teste", "1q2w3e");
         } catch (ClassNotFoundException e) {
             throw new SQLException("Driver não encontrado: ", e);
         } catch (SQLException e) {

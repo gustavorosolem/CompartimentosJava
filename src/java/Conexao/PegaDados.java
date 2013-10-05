@@ -20,6 +20,10 @@ public class PegaDados extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            /*String[] myJsonData = request.getParameterValues("json[]");
+            out.println("JSON = \t"+myJsonData[0]);
+            System.out.println("JSON = \t"+myJsonData[0]);*/
+            
             String passo = request.getParameter("passo");
             System.out.println("passo = \t"+passo);
             out.println("passo = \t"+passo);

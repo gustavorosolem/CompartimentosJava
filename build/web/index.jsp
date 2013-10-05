@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,10 +15,10 @@
             <div class="menu-principal">
                 <div class="well sidebar-nav">
                     <h1>Compartimentos</h1>
-                    <p class="config-tit">Configurações gerais:</p>
-                    <form action="PegaDados" method="get" class="form-horizontal">
+                    <p class="config-tit">ConfiguraÃ§Ãµes gerais:</p>
+                    <form name="PegaDados" action="PegaDados" method="get" class="form-horizontal" id="salvarDados">
                         <div class="form-group">
-                            <label for="t" class="col-lg-3 control-label">Método</label>
+                            <label for="t" class="col-lg-3 control-label">MÃ©todo</label>
                             <div class="col-lg-5">
                                 <select class="input-sm form-control" id="metodo" name="metodo">
                                     <option value="1">RKF</option>
@@ -32,7 +33,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="periodo" class="col-lg-3 control-label">Período</label>
+                            <label for="periodo" class="col-lg-3 control-label">PerÃ­odo</label>
                             <div class="col-lg-5">
                                 <input name="periodo" class="input-sm form-control" id="periodo" type="text" placeholder="Tempo" value="4" />
                             </div>
@@ -128,6 +129,7 @@
         <script src="js/plumb/jquery.jsPlumb.js"></script>
         <!-- custom -->
         <script src="js/custom.js"></script>
+        <script src="js/ajax.js"></script>
         <!-- /JS -->
     </body>
 </html>

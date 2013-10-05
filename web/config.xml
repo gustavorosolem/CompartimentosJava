@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+	xmlns:gap = "http://phonegap.com/ns/1.0"
+	id = "com.alunny.amazing"
+	version = "1.0.0">
+
+	<name>Compartimentos</name>
+
+	<description>
+		Compartimentos utilizando RKF
+	</description>
+
+	<author href="http://synergyconsulting.com.br/compartimento/"
+		email="contato@synergyconsulting.com.br">
+		Gustavo Rosolem
+	</author>
+
+	<gap:platforms>
+		<gap:platform name="android" minVersion="2.1" />
+		<gap:platform name="webos" />
+	</gap:platforms>
+
+	<!--<icon src="blurry.png" gap:role="default" />
+
+    <gap:splash src="weirdo.png" />-->
+
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<feature name="http://api.phonegap.com/1.0/network"/>
+
+</widget>

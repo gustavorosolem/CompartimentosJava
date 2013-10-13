@@ -16,7 +16,7 @@
                 <div class="well sidebar-nav">
                     <h1>Compartimentos</h1>
                     <p class="config-tit">Configurações gerais:</p>
-                    <form name="PegaDados" action="PegaDados" method="get" class="form-horizontal" id="salvarDados">
+                    <form name="PegaDados" action="PegaDados" method="post" class="form-horizontal" id="salvarDados">
                         <div class="form-group">
                             <label for="t" class="col-lg-3 control-label">Método</label>
                             <div class="col-lg-5">

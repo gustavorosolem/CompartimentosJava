@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Conexao;
 
 import java.io.IOException;
@@ -14,39 +10,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import java.util.ArrayList;
+
 public class PegaDados extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //response.setContentType("text/json");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        Gson gson = new Gson();
         try {
-            /*String[] myJsonData = request.getParameterValues("json[]");
-            out.println("JSON = \t"+myJsonData[0]);
-            System.out.println("JSON = \t"+myJsonData[0]);*/
+            String valores = request.getParameter("valores");
+            out.println("JSON = \t"+valores);
+            System.out.println("JSON = \t"+valores);
             
-            String passo = request.getParameter("passo");
-            System.out.println("passo = \t"+passo);
-            out.println("passo = \t"+passo);
+            ArrayList<String> bandas = new ArrayList<String> ();
+            
+            //DataObject pass = gson.fromJson(valores, DataObject.class);;
+            //double temp = Double.valueOf(periodo);
+            //double te = Double.valueOf(t);
+            //double met = Double.valueOf(metodo);
            
-            String periodo = request.getParameter("periodo");
-            System.out.println("periodo = \t"+periodo);
-             out.println("periodo = \t"+periodo);
-           
-            String t = request.getParameter("t");
-            System.out.println("t = \t"+t);
-            out.println("t = \t"+t);
-           
-            String metodo = request.getParameter("metodo");
-            System.out.println("metodo = \t"+metodo);
-            out.println("metodo = \t"+metodo);         
-                      
-           
-            double pass = Double.valueOf(passo);
-            double temp = Double.valueOf(periodo);
-            double te = Double.valueOf(t);
-            double met = Double.valueOf(metodo);
-           
-            Conexao con = new Conexao(pass,temp,te,met);     
+            Conexao con = new Conexao(pass,temp,te,met);
 
         } catch (SQLException ex) {
             Logger.getLogger(PegaDados.class.getName()).log(Level.SEVERE, null, ex);

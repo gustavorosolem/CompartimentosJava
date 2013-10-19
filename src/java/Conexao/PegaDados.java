@@ -11,7 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class PegaDados extends HttpServlet {
 
@@ -19,24 +24,20 @@ public class PegaDados extends HttpServlet {
         //response.setContentType("text/json");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Gson gson = new Gson();
         try {
             String valores = request.getParameter("valores");
-            out.println("JSON = \t"+valores);
             System.out.println("JSON = \t"+valores);
-            
-            ArrayList<String> bandas = new ArrayList<String> ();
-            
-            //DataObject pass = gson.fromJson(valores, DataObject.class);;
-            //double temp = Double.valueOf(periodo);
-            //double te = Double.valueOf(t);
-            //double met = Double.valueOf(metodo);
-           
-            Conexao con = new Conexao(pass,temp,te,met);
+
+            Gson gson = new Gson();
+            Tratamento valoresTratados = gson.fromJson(valores, Tratamento.class);
+            System.out.println("JSON2 = \t"+gson.toJson(valoresTratados));
+            out.println("Enviado com Sucesso!");
+ 
+            Conexao con = new Conexao(valoresTratados);
 
         } catch (SQLException ex) {
             Logger.getLogger(PegaDados.class.getName()).log(Level.SEVERE, null, ex);
-            
+            out.println("Ocorreu um erro. Tente novamente");
         } finally {            
             out.close();
         }

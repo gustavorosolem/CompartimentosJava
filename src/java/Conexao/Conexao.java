@@ -8,17 +8,17 @@ import java.sql.Statement;
 
 public class Conexao {
     //construtor
-    public Conexao(double pass , double temp, double te, double met) throws SQLException {
+    public Conexao(Tratamento valores) throws SQLException {
         Connection conn = GerenciadorConexao.getConection();
         try {
-            String url_nome = Long.toHexString(Double.doubleToLongBits(Math.random()));
+            //String url_nome = Long.toHexString(Double.doubleToLongBits(Math.random()));
             String query = "insert into tb_registro (url_nome, passo, periodo, t, metodo) values (?,?,?,?,?)";
             PreparedStatement stm = conn.prepareStatement(query);
-            stm.setString(1, url_nome);
+            /*stm.setString(1, url_nome);
             stm.setDouble(2, pass);
             stm.setDouble(3, temp);
             stm.setDouble(4, te);
-            stm.setDouble(5, met);
+            stm.setDouble(5, met);*/
             stm.execute();
             stm.clearParameters();       
             GerenciadorConexao.close(conn, stm);

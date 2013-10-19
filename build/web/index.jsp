@@ -99,7 +99,7 @@
         </div>
 
         <table style="margin-top: 100px;" class="table table-bordered table-hover table-condensed table-striped" id="result"></table>
-
+        <img src="img/ajax-loader.gif" id="loading-indicator" style="display:none; position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px;" />
 
         <!-- JS -->
         <!-- jquery -->

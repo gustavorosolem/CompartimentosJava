@@ -1,40 +1,63 @@
 //Ajax para salvar os dados no banco
 var form = $('#salvarDados');
-var valores = {
-    "url_nome": "XX",
-    "passo": 0,
-    "periodo": 0,
-    "t": 0,
-    "metodo": 0,
-    "caixa": [
-        {
-            "nome": "XX",
-            "valor": 0,
-            "ligacao": [
-                {
-                    "caixa_id": 0,
-                    "caixa_destino_id": 0
-                }, {
-                    "caixa_id": 0,
-                    "caixa_destino_id": 0
-                }
-            ]
-        }, {
-            "nome": "XX",
-            "valor": 0,
-            "ligacao": [
-                {
-                    "caixa_id": 0,
-                    "caixa_destino_id": 0
-                }, {
-                    "caixa_id": 0,
-                    "caixa_destino_id": 0
-                }
-            ]
+form.submit(function () {    
+    //Gerar a URL
+    var url_nome = window.location.hash.replace("#","");
+    if(!url_nome) {
+        var char = new Array();
+        char[0] = String.fromCharCode(97 + Math.round(Math.random() * 25));
+        char[1] = String.fromCharCode(65 + Math.round(Math.random() * 25));
+        char[2] = String.fromCharCode(97 + Math.round(Math.random() * 25));
+        char[3] = String.fromCharCode(65 + Math.round(Math.random() * 25));
+        char[4] = String.fromCharCode(65 + Math.round(Math.random() * 25));
+        char[5] = String.fromCharCode(97 + Math.round(Math.random() * 25));
+        url_nome = char.join("");
+        window.location.hash = url_nome;
+    }
+    
+    //Conexoes
+    var conexoes = new Array();
+    //Entrada
+    var temp = jsPlumb.getConnections();
+    for(var j=0; j<temp.length; j++) {
+        var val = $(temp[j].getOverlay("label").getLabel());
+        val = $(val).attr('id');
+        val = Number($('#'+ val).val());
+        if (val) {
+            conexoes.push({"saida_id": temp[j].sourceId, "chegada_id": temp[j].targetId, valor: val});
         }
-    ]
-};
-form.submit(function () {
+    }
+    
+    //Pega as informacoes dos compartimentos
+    var bloco = $(".bloco");
+    var caixas = new Array();
+    for (i=0; i<bloco.length; i++) {
+        if ($(bloco[i]).find('input').val()) {
+            caixas.push({
+                "id": $(bloco[i]).attr('id'),
+                "nome": $(bloco[i]).find('.title').text(),
+                "valor": $(bloco[i]).find('input').val()
+            });
+        }
+    };
+    
+    //Criando o JSON das informacoes
+    var valores = {
+        "url_nome": url_nome,
+        "passo": Number($('#h').val()),
+        "periodo": Number($('#periodo').val()),
+        "t": Number($('#t').val()),
+        "metodo": Number($('#metodo option:selected').val()),
+        "caixa": caixas,
+        "ligacao": conexoes
+    };
+    
+    
+    
+    
+    
+    
+    
     $.ajax({
         type: form.attr('method'),
         url: form.attr('action'),

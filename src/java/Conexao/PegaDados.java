@@ -15,23 +15,26 @@ import com.google.gson.Gson;
 public class PegaDados extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //response.setContentType("text/json");
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String valores = request.getParameter("valores");
-
+            String tipo = request.getParameter("tipo");
             Gson gson = new Gson();
-            Tratamento valoresTratados = gson.fromJson(valores, Tratamento.class);
-            valoresTratados.request_ip = request.getRemoteAddr();
-            valoresTratados.request_useragent = request.getHeader("user-agent");
             
-            System.out.println("JSON2 = \t"+gson.toJson(valoresTratados));
-            
-            Conexao con = new Conexao(valoresTratados);
-            
-            out.println("Enviado com Sucesso! " + valoresTratados.request_useragent);
-
+            if(tipo.equals("insert")) {
+                response.setContentType("text/html;charset=UTF-8");
+                String valores = request.getParameter("valores");
+                Tratamento valoresTratados = gson.fromJson(valores, Tratamento.class);
+                valoresTratados.request_ip = request.getRemoteAddr();
+                valoresTratados.request_useragent = request.getHeader("user-agent");
+                System.out.println("JSON = \t"+gson.toJson(valoresTratados));
+                Conexao con = new Conexao(tipo, valoresTratados);
+                out.println("Enviado com Sucesso! " + valoresTratados.request_useragent);
+            } else if(tipo.equals("select")) {
+                response.setContentType("text/json");
+                String url_nome = request.getParameter("url_nome");
+                Conexao_select con = new Conexao_select(tipo, url_nome);
+                out.println(gson.toJson(con));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PegaDados.class.getName()).log(Level.SEVERE, null, ex);
             out.println("Ocorreu um erro. Tente novamente");

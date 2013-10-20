@@ -1,7 +1,6 @@
 package Conexao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +8,7 @@ import java.sql.Statement;
 
 public class Conexao {
     //construtor
-    public Conexao(Tratamento valores) throws SQLException {
+    public Conexao(String tipo, Tratamento valores) throws SQLException {
         Connection conn = GerenciadorConexao.getConection();
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -17,7 +16,7 @@ public class Conexao {
         ResultSet rs2 = null;
         try {
             //Verifica se o URL_NOME ja existe
-            stm2 = conn.prepareStatement("SELECT id FROM tb_registro WHERE url_nome=?");
+            stm2 = conn.prepareStatement("SELECT id FROM tb_registro WHERE url_nome LIKE ?");
             stm2.setString(1, valores.url_nome);
             rs2 = stm2.executeQuery();
             String id = null;

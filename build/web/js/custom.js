@@ -273,7 +273,7 @@ jsPlumb.ready(function() {
 	jsPlumb.makeTarget($(".bloco"), targetOptions);
 	jsPlumb.bind("connection", function(info) {
 		info.connection.setPaintStyle({strokeStyle:nextColour()});
-		info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa x" + $(info.connection.source).attr('data-ref') + "x" + $(info.connection.target).attr('data-ref') + "' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' />");
+		info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa " + $(info.connection.source).attr('data-ref') + ">" + $(info.connection.target).attr('data-ref') + "' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' />");
 	});
 	jsPlumb.bind("click", function(c) { 
 		//jsPlumb.detach(c); 
@@ -308,8 +308,10 @@ jsPlumb.ready(function() {
 
 $(document).ajaxSend(function(event, request, settings) {
     $('#loading-indicator').show();
+    $("<div class='modal-backdrop fade in'></div>").appendTo('body');
 });
 
 $(document).ajaxComplete(function(event, request, settings) {
     $('#loading-indicator').hide();
+    $('.modal-backdrop').remove();
 });

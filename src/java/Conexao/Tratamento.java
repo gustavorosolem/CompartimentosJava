@@ -12,6 +12,7 @@ public class Tratamento {
     ArrayList<Ligacao> ligacao = new ArrayList<Ligacao>();
     String request_ip;
     String request_useragent;
+    boolean vazio;
 }
 
 class Blocos {

@@ -11,12 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class PegaDados extends HttpServlet {
 
@@ -26,14 +20,17 @@ public class PegaDados extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String valores = request.getParameter("valores");
-            System.out.println("JSON = \t"+valores);
 
             Gson gson = new Gson();
             Tratamento valoresTratados = gson.fromJson(valores, Tratamento.class);
+            valoresTratados.request_ip = request.getRemoteAddr();
+            valoresTratados.request_useragent = request.getHeader("user-agent");
+            
             System.out.println("JSON2 = \t"+gson.toJson(valoresTratados));
-            out.println("Enviado com Sucesso!");
- 
+            
             Conexao con = new Conexao(valoresTratados);
+            
+            out.println("Enviado com Sucesso! " + valoresTratados.request_useragent);
 
         } catch (SQLException ex) {
             Logger.getLogger(PegaDados.class.getName()).log(Level.SEVERE, null, ex);

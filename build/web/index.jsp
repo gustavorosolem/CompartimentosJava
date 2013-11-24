@@ -118,38 +118,10 @@
       </div><!-- /.navbar-collapse -->
     </nav>
     <div class="container-geral">
-      <div class="grafico-resultado">
+      <!--<div class="grafico-resultado">
         <div id="grafico-container" style="width: 600px; height: 250px;"></div>
-      </div>
-      <div id="container-blocos">
-        <!--<div class="bloco" id="x1" data-ref="1">
-          <div class="drag"><span class="glyphicon glyphicon-move"></span></div>
-          <div class="start ep"><span class="glyphicon glyphicon-random ep"></span></div>
-          <span class="title">x1</span>
-          <div class="form-group">
-            <input class="form-control input-sm" type="text" placeholder="Valor Inicial">
-          </div>
-          <span class="close">&times;</span>
-        </div>
-        <div class="bloco" id="x2" data-ref="2">
-          <div class="drag"><span class="glyphicon glyphicon-move"></span></div>
-          <div class="start ep"><span class="glyphicon glyphicon-random ep"></span></div>
-          <span class="title">x2</span>
-          <div class="form-group">
-            <input class="form-control input-sm" type="text" placeholder="Valor Inicial">
-          </div>
-          <span class="close">&times;</span>
-        </div>
-        <div class="bloco" id="x3" data-ref="3">
-          <div class="drag"><span class="glyphicon glyphicon-move"></span></div>
-          <div class="start ep"><span class="glyphicon glyphicon-random ep"></span></div>
-          <span class="title">x3</span>
-          <div class="form-group">
-            <input class="form-control input-sm" type="text" placeholder="Valor Inicial">
-          </div>
-          <span class="close">&times;</span>
-        </div>-->
-      </div>
+      </div>-->
+      <div id="container-blocos"></div>
       <div id="bloco-modelo">
         <div class="drag"><span class="glyphicon glyphicon-move"></span></div>
         <div class="start ep"><span class="glyphicon glyphicon-random ep"></span></div>
@@ -157,25 +129,51 @@
         <div class="form-group">
           <input class="form-control input-sm" type="text" placeholder="Valor Inicial">
         </div>
+        <div class="grafico-resultado-mini">
+          <div id="grafico-container-" class="graph" style="height: 60px;"></div>
+          <div class="reporting"></div>
+          <div class="grafico-area"></div>
+        </div>
         <span class="close">&times;</span>
       </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="grafico-resultado" tabindex="-1" role="dialog" aria-labelledby="Grafico" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="Grafico">Gráfico</h4>
+          </div>
+          <div class="modal-body">
+            <div id="grafico-container"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <table style="margin-top: 100px;" class="table table-bordered table-hover table-condensed table-striped" id="result"></table>
-    <img src="img/ajax-loader.gif" id="loading-indicator" style="display:none; position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px;" />
+    <img src="img/ajax-loader.gif" id="loading-indicator" style="position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px;" />
+    <div class="modal-backdrop fade in"></div>
 
     <!-- JS -->
     <!-- jquery -->
     <script src="js/jquery-1.10.1.min.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.editable.min.js"></script>
     <!-- canvas js -->
     <script src="js/canvasjs.min.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/exporting.js"></script>
     <!-- jsPlumb -->
     <script src="js/jquery.ui.touch-punch.min.js"></script>
-    <!--<script src="js/jquery.jsPlumb-1.5.2-min.js"></script>-->
+    <script src="js/jquery.jsPlumb-1.5.4-min.js"></script>
     <!-- Old jsplumb -->
-    <script src="js/plumb/jsBezier-0.6-min.js"></script>
+    <!--<script src="js/plumb/jsBezier-0.6-min.js"></script>
     <script src="js/plumb/jsPlumb-util.js"></script>
     <script src="js/plumb/jsPlumb-dom-adapter.js"></script>
     <script src="js/plumb/jsPlumb-drag.js"></script>
@@ -189,9 +187,11 @@
     <script src="js/plumb/jsPlumb-renderers-svg.js"></script>
     <script src="js/plumb/jsPlumb-renderers-canvas.js"></script>
     <script src="js/plumb/jsPlumb-renderers-vml.js"></script>
-    <script src="js/plumb/jquery.jsPlumb.js"></script>
-    <script src="js/jquery.editable.min.js"></script>
+    <script src="js/plumb/jquery.jsPlumb.js"></script>-->
     <!-- custom -->
+    <script src="js/calculos.js"></script>
+    <script src="js/graficos.js"></script>
+    <script src="js/jsplumb-custom.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/ajax.js"></script>
     <!-- /JS -->

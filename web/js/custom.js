@@ -2,124 +2,8 @@ $(window).resize(function() {
   $('.container-geral').height($(window).height() - 70);
 }).resize();
 
-//RK4
-var method_rkf = function(t, h) {
-  var graph = [], bloco = [], entra = [], sai = [];
-  $(".bloco").each(function() {
-    if ($(this).find('input').val()) {
-      bloco.push({id: $(this).attr('id'), val: Number($(this).find('input').val())});
-    }
-  });
-  for (var i = 0; i < bloco.length; i++) {
-    graph[i] = [];
-    //Entra
-    var temp = jsPlumb.getConnections({target: bloco[i].id});
-    for (var j = 0; j < temp.length; j++) {
-      var val = $(temp[j].getOverlay("label").getLabel());
-      val = $(val).attr('id');
-      val = Number($('#' + val).val());
-      if (val) {
-        entra.push({id: bloco[i].id, id_val: bloco[i].val, val: val});
-      }
-    }
-    //Sai
-    var temp = jsPlumb.getConnections({source: bloco[i].id});
-    for (var j = 0; j < temp.length; j++) {
-      var val = $(temp[j].getOverlay("label").getLabel());
-      val = $(val).attr('id');
-      val = Number($('#' + val).val());
-      if (val) {
-        sai.push({id: bloco[i].id, id_val: bloco[i].val, val: val});
-      }
-    }
-  }
-  var t_temp = t;
-  var periodo = $('#periodo').val();
-  while (t_temp <= periodo) {
-    for (var i = 0; i < bloco.length; i++) {
-      var id = bloco[i].id;
-      var val = bloco[i].val;
-      var rk1 = h * kUm(val, id, entra, sai);
-      var rk2 = h * kDois(val, id, entra, sai, rk1);
-      var rk3 = h * kTres(val, id, entra, sai, rk2);
-      var rk4 = h * kQuatro(val, id, entra, sai, rk3);
-      graph[i].push({x: t_temp, y: val});
-      bloco[i].val = val * 1 + (rk1 * 1 + 2 * rk2 + 2 * rk3 + rk4 * 1) / 6;
-      for (var j = 0; j < entra.length; j++) {
-        if (entra[j].id === id) {
-          entra[j].id_val = bloco[i].val;
-        }
-      }
-      for (var j = 0; j < sai.length; j++) {
-        if (sai[j].id === id) {
-          sai[j].id_val = bloco[i].val;
-        }
-      }
-      graph[i].label = id;
-    }
-    t_temp = h + t_temp;
-  }
-  function kUm(val, id, entra, sai) {
-    var result = 0.0;
-    for (var i = 0; i < entra.length; i++) {
-      if (entra[i].id === id) {
-        result += entra[i].val * entra[i].id_val;
-      }
-    }
-    for (var i = 0; i < sai.length; i++) {
-      if (sai[i].id === id) {
-        result -= sai[i].val * val;
-      }
-    }
-    return result;
-  }
-  function kDois(val, id, entra, sai, rk1) {
-    var result = 0.0;
-    for (var i = 0; i < entra.length; i++) {
-      if (entra[i].id === id) {
-        result += entra[i].val * (entra[i].id_val + rk1);
-      }
-    }
-    for (var i = 0; i < sai.length; i++) {
-      if (sai[i].id === id) {
-        result -= sai[i].val * (val + rk1);
-      }
-    }
-    return result;
-  }
-  function kTres(val, id, entra, sai, rk2) {
-    var result = 0.0;
-    for (var i = 0; i < entra.length; i++) {
-      if (entra[i].id === id) {
-        result += entra[i].val * (entra[i].id_val + rk2);
-      }
-    }
-    for (var i = 0; i < sai.length; i++) {
-      if (sai[i].id === id) {
-        result -= sai[i].val * (val + rk2);
-      }
-    }
-    return result;
-  }
-  function kQuatro(val, id, entra, sai, rk3) {
-    var result = 0.0;
-    for (var i = 0; i < entra.length; i++) {
-      if (entra[i].id === id) {
-        result += entra[i].val * (entra[i].id_val + rk3);
-      }
-    }
-    for (var i = 0; i < sai.length; i++) {
-      if (sai[i].id === id) {
-        result -= sai[i].val * (val + rk3);
-      }
-    }
-    return result;
-  }
-  return graph;
-};
-
 //CanvasJS
-var dps = [];
+/*var dps = [];
 var chart = new CanvasJS.Chart("grafico-container", {
   data: [
     {
@@ -130,7 +14,7 @@ var chart = new CanvasJS.Chart("grafico-container", {
 });
 window.onload = function() {
   chart.render();
-};
+};*/
 
 function atualizaGrafico() {
   var t = Number($('#t').val());
@@ -141,31 +25,17 @@ function atualizaGrafico() {
   } else if (method === 2) {
     alert('Em desenvolvimento');
     //dps = method_rk4(t, h);
-  }
-  ;
-  var graph = [];
-  for (var i = 0; i < dps.length; i++) {
-    var soma = 0;
-    for (var j = 0; j < dps[i].length; j++) {
-      soma += dps[i][j].y;
-    }
-    graph.push({type: "line", name: dps[i].label, label: soma, showInLegend: true, legendText: dps[i].label, dataPoints: dps[i]});
-  }
-  ;
-  $('#grafico-container').html('');
+  };
+  gerarGraficos(dps);
+
+  /*$('#grafico-container').html('');
   var chart = new CanvasJS.Chart("grafico-container", {
-    /*zoomEnabled: true,
-     panEnabled: true,*/
     legend: {
       fontSize: 13,
       fontFamily: "Arial",
       horizontalAlign: "right",
       verticalAlign: "bottom"
     },
-    /*axisY: {
-     interlacedColor: "#F0F8FF" ,
-     gridThickness: 0
-     },*/
     toolTip: {
       shared: true,
       content: function(e) {
@@ -183,9 +53,9 @@ function atualizaGrafico() {
     },
     data: graph
   });
-  chart.render();
+  chart.render();*/
 
-  /* Criar tabela no HTML */
+  /* Criar tabela em HTML */
   var tabela = '<tr>';
   tabela += "<th width='150'>Passo</th>";
   for (var i = 0; i < dps.length; i++) {
@@ -198,120 +68,70 @@ function atualizaGrafico() {
     tabela += '<td>' + dps[0][i].x + '</td>';
     for (var j = 0; j < dps.length; j++) {
       tabela += '<td>' + dps[j][i].y + '</td>';
-    }
-    ;
+    };
     tabela += '</tr>';
-  }
-  ;
+  };
   $('#result').html(tabela);
 }
 
-//PLUMB
-// Gerador de cores aleatorias
-var curColourIndex = 1, maxColourIndex = 24, nextColour = function() {
-  var R, G, B;
-  R = parseInt(128 + Math.sin((curColourIndex * 3 + 0) * 1.3) * 128);
-  G = parseInt(128 + Math.sin((curColourIndex * 3 + 1) * 1.3) * 128);
-  B = parseInt(128 + Math.sin((curColourIndex * 3 + 2) * 1.3) * 128);
-  curColourIndex = curColourIndex + 1;
-  if (curColourIndex > maxColourIndex)
-    curColourIndex = 1;
-  return "rgb(" + R + "," + G + "," + B + ")";
-};
-
-//Configuracoes dos blocos
-var sourceOptions = {
-  filter: ".ep",
-  anchor: "Continuous",
-  connector: "Bezier",
-  connectorStyle: {strokeStyle: "#000", lineWidth: 2},
-  maxConnections: -1,
-  onMaxConnections: function(info, e) {
-    alert("Maximum connections (" + info.maxConnections + ") reached");
-  }
-};
-var targetOptions = {
-  dropOptions: {hoverClass: "dragHover"},
-  anchor: "Continuous"
-};
-
 //Funcao do botao para adicionar outro bloco
-var qtd_bloco = 1;
 $(".btn-add-bloco").click(function() {
-  var Div = $("#bloco-modelo").clone();
-  $(Div).html($(Div).html().replace('TITLE', 'x' + qtd_bloco));
-  $(Div).addClass('bloco ' + qtd_bloco).attr("id", "x" + qtd_bloco).attr("data-ref", qtd_bloco).prependTo("#container-blocos");
+  criar_bloco('create');
+  atualizarTudo();
+});
+
+var qtd_bloco = 1;
+//Funcao para criar os blocos dinamicamente
+function criar_bloco(origem, valores) {
+  if (origem === 'create') {
+    var Div = $("#bloco-modelo").clone();
+    $(Div).html($(Div).html().replace('TITLE', 'x' + qtd_bloco));
+    $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-x' + qtd_bloco);
+    $(Div).addClass('bloco x' + qtd_bloco).attr("id", "x" + qtd_bloco).attr("data-ref", qtd_bloco).prependTo("#container-blocos");
+    qtd_bloco += 1;
+  } else if (origem === 'load') {
+    $(".bloco").remove();
+    for (i = 0; i < valores.caixa.length; i++) {
+      var Div = $("#bloco-modelo").clone();
+      $(Div).html($(Div).html().replace('TITLE', valores.caixa[i].nome));
+      $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-' + valores.caixa[i].id);
+      $(Div).addClass('bloco ' + valores.caixa[i].id).attr("id", valores.caixa[i].id).attr("data-ref", valores.caixa[i].id).prependTo("#container-blocos");
+      $(Div).find('input').val(valores.caixa[i].valor);
+    };
+    for (i = 0; i < valores.ligacao.length; i++) {
+      jsPlumb.connect({source: valores.ligacao[i].saida_id, target: valores.ligacao[i].chegada_id});
+      $("#k" + valores.ligacao[i].saida_id + valores.ligacao[i].chegada_id).val(valores.ligacao[i].valor);
+    };
+  }
+  var chart = new Highcharts.Chart({
+    chart: {
+      renderTo: $(Div).find('.grafico-resultado-mini .graph')[0]
+    },
+    series: [{
+      data: [],
+      showInLegend: false
+    }]
+  });
   jsPlumb.makeSource($(Div), sourceOptions);
   jsPlumb.makeTarget($(Div), targetOptions);
   jsPlumb.draggable($(Div), {handle: ".drag", stack: "div", opacity: 0.8});
   var tLeft = Math.floor(Math.random() * 800),
       tTop = Math.floor(Math.random() * 600);
-  jsPlumb.animate($(Div), {"left": tLeft, "top": tTop}, {duration: "slow"});
+  //jsPlumb.animate($(Div), {"left": tLeft, "top": tTop}, {duration: "slow"});
   jsPlumb.repaintEverything();
-  qtd_bloco += 1;
-  atualizarTudo();
-});
+}
 
-//Funcao para apagar um bloco
-$(document).on('click', '.bloco .close', function() {
-  jsPlumb.detachAllConnections($(this).parent());
-  $(this).parent().remove();
-  jsPlumb.repaintEverything();
-});
-
-jsPlumb.ready(function() {
-  jsPlumb.draggable($(".bloco"), {handle: ".drag", opacity: 0.8});
-  jsPlumb.importDefaults({
-    Container: $("#container-blocos"),
-    Endpoint: ["Dot", {radius: 2}],
-    HoverPaintStyle: {strokeStyle: "#42a62c", lineWidth: 2},
-    ConnectionOverlays: [
-      ["PlainArrow", {location: 1, id: "arrow", length: 10, width: 15}],
-      ["Label", {label: "Ligação", id: "label"}]
-    ]
+//Inicia a funcao de modificacao dos inputs
+$(document).on('propertychange keyup input cut paste', '#container-blocos input, .menu-principal input', function() {
+  $(this).val(function(index, value) {
+    return value.replace(',', '.');
   });
-  /*$(".bloco").each(function(i, e) {
-    jsPlumb.makeSource($(e), sourceOptions);
-  });
-  jsPlumb.makeTarget($(".bloco"), targetOptions);*/
-  jsPlumb.bind("connection", function(info) {
-    info.connection.setPaintStyle({strokeStyle: nextColour()});
-    info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa " + $(info.connection.source).attr('data-ref') + ">" + $(info.connection.target).attr('data-ref') + "' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' />");
-  });
-  jsPlumb.bind("click", function(c) {
-    //jsPlumb.detach(c);
-  });
-  jsPlumb.bind("jsPlumbConnection", function(connectionInfo) {
-    //...update your data model here.  The contents of the 'connectionInfo' are described below.
-    //http://jsplumb.tumblr.com/
-    //jsPlumb.repaintEverything();
-    //function random_width() {
-    //return Math.floor(Math.random() * (900 - 200) + 200);
-  });
-  jsPlumb.bind("jsPlumbConnectionDetached", function(connectionInfo) {
-    //...update your data model here.  The contents of the 'connectionInfo' are described below.
-  });
-  /*$('.bloco').each(function(i, el) {
-    var tLeft = Math.floor(Math.random() * 800),
-        tTop = Math.floor(Math.random() * 600);
-    jsPlumb.animate($(el), {"left": tLeft, "top": tTop}, {duration: "slow"});
-  });
-  jsPlumb.recalculateOffsets($("#container-blocos"));*/
-
-  //Inicia a funcao de modificacao dos inputs
-  $(document).on('propertychange keyup input cut paste', '#container-blocos input, .menu-principal input', function() {
-    $(this).val(function(index, value) {
-      return value.replace(',', '.');
-    });
-    if ($(this).data('oldVal') !== $(this).val()) {
-      $(this).data('oldVal', $(this).val());
-      if ($.isNumeric($(this).val()) === true && $('#t').val() !== 0 && $('#h').val() !== 0) {
-        atualizaGrafico();
-      }
+  if ($(this).data('oldVal') !== $(this).val()) {
+    $(this).data('oldVal', $(this).val());
+    if ($.isNumeric($(this).val()) === true && $('#t').val() !== 0 && $('#h').val() !== 0) {
+      atualizaGrafico();
     }
-  });
-
-  atualizarTudo();
+  }
 });
 
 $(document).ajaxSend(function(event, request, settings) {
@@ -330,7 +150,12 @@ $(document).on('click', '.yamm .dropdown-menu', function(e) {
 
 function atualizarTudo() {
   $('#container-blocos .bloco .title').each(function() {
-    $(this).editable("click");
+    $(this).editable("click", function(e) {
+      if (e.value === '') {
+        e.target.html(e.old_value);
+        alert("Escreva um nome valido para o bloco");
+      }
+    });
     $(this).tooltip({
       title: 'Clique para alterar',
       container: 'body'
@@ -341,4 +166,9 @@ function atualizarTudo() {
 $('.help').tooltip({
   container: 'body',
   placement: 'auto'
+});
+
+$(document).ready(function() {
+  $('#loading-indicator').hide();
+  $('.modal-backdrop').remove();
 });

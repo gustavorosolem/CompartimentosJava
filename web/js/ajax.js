@@ -90,26 +90,8 @@ $(document).ready(function() {
           $('#periodo').val(valores.periodo);
           $('#t').val(valores.t);
           $("#metodo option[value=" + valores.metodo + "]").attr("selected", "selected");
-          $(".bloco").remove();
-          for (i = 0; i < valores.caixa.length; i++) {
-            var Div = $("#bloco-modelo").clone();
-            $(Div).html($(Div).html().replace('TITLE', valores.caixa[i].nome));
-            $(Div).addClass('bloco ' + qtd_bloco).attr("id", valores.caixa[i].id).attr("data-ref", valores.caixa[i].id).prependTo("#container-blocos");
-            $(Div).find('input').val(valores.caixa[i].valor);
-            jsPlumb.makeSource($(Div), sourceOptions);
-            jsPlumb.makeTarget($(Div), targetOptions);
-            jsPlumb.draggable($(Div), {handle: ".drag", stack: "div", opacity: 0.8});
-            var tLeft = Math.floor(Math.random() * 800),
-                tTop = Math.floor(Math.random() * 600);
-            jsPlumb.animate($(Div), {"left": tLeft, "top": tTop}, {duration: "slow"});
-          }
-          ;
-          for (i = 0; i < valores.ligacao.length; i++) {
-            jsPlumb.connect({source: valores.ligacao[i].saida_id, target: valores.ligacao[i].chegada_id});
-            $("#k" + valores.ligacao[i].saida_id + valores.ligacao[i].chegada_id).val(valores.ligacao[i].valor);
-          }
-          ;
-          jsPlumb.repaintEverything();
+          criar_bloco('load', valores);
+          atualizaGrafico();
         }
       }
     });

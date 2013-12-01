@@ -29,14 +29,14 @@ public class Conexao {
       String query;
       //Insert na tabela registro
       if (id == null) {
-        query = "INSERT INTO tb_registro (url_nome, passo, periodo, t, metodo) VALUES (?,?,?,?,?)";
+        query = "INSERT INTO tb_registro (url_nome, passo, periodo, t, metodo, data_modificacao, request_ip, request_useragent) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP,?,?)";
         stm = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       } else {
         stm2 = conn.prepareStatement("DELETE FROM tb_caixa WHERE tb_registro_id = " + id);
         stm2.execute();
         stm2 = conn.prepareStatement("DELETE FROM tb_ligacoes WHERE tb_registro_id = " + id);
         stm2.execute();
-        query = "UPDATE tb_registro SET url_nome=?, passo=?, periodo=?, t=?, metodo=? WHERE id=" + id;
+        query = "UPDATE tb_registro SET url_nome=?, passo=?, periodo=?, t=?, metodo=?, data_modificacao=CURRENT_TIMESTAMP, request_ip=?, request_useragent=? WHERE id=" + id;
         stm = conn.prepareStatement(query);
       }
       long key = -1L;
@@ -45,6 +45,8 @@ public class Conexao {
       stm.setDouble(3, valores.periodo);
       stm.setDouble(4, valores.t);
       stm.setInt(5, valores.metodo);
+      stm.setString(6, valores.request_ip);
+      stm.setString(7, valores.request_useragent);
       stm.execute();
       if (id == null) {
         rs = stm.getGeneratedKeys();
@@ -58,13 +60,15 @@ public class Conexao {
       conn.commit();
 
       //Insert na tabela caixa
-      query = "INSERT INTO tb_caixa (nome, valor, internal_id, tb_registro_id) VALUES (?,?,?,?)";
+      query = "INSERT INTO tb_caixa (nome, valor, internal_id, posTop, posLeft, tb_registro_id) VALUES (?,?,?,?,?,?)";
       stm = conn.prepareStatement(query);
       for (int i = 0; i < valores.caixa.size(); i++) {
         stm.setString(1, valores.caixa.get(i).nome);
         stm.setDouble(2, valores.caixa.get(i).valor);
         stm.setString(3, valores.caixa.get(i).id);
-        stm.setLong(4, key);
+        stm.setInt(4, valores.caixa.get(i).posTop);
+        stm.setInt(5, valores.caixa.get(i).posLeft);
+        stm.setLong(6, key);
         stm.addBatch();
         if ((i + 1) % 1000 == 0) {
           stm.executeBatch();

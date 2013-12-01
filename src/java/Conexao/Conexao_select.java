@@ -25,6 +25,7 @@ class Conexao_select {
         valores.periodo = rs.getDouble("periodo");
         valores.t = rs.getDouble("t");
         valores.metodo = rs.getInt("metodo");
+        valores.privado = rs.getBoolean("privado");
         valores.vazio = false;
       }
 
@@ -37,6 +38,8 @@ class Conexao_select {
         blocos.id = rs.getString("internal_id");
         blocos.nome = rs.getString("nome");
         blocos.valor = rs.getDouble("valor");
+        blocos.posTop = rs.getInt("posTop");
+        blocos.posLeft = rs.getInt("posLeft");
         valores.caixa.add(blocos);
       }
 

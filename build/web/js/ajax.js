@@ -29,18 +29,19 @@ form.submit(function() {
   }
 
   //Pega as informacoes dos compartimentos
-  var bloco = $(".bloco");
-  var caixas = [];
+  var bloco = $(".bloco"), caixas = [], position;
   for (i = 0; i < bloco.length; i++) {
     if ($(bloco[i]).find('input').val()) {
+      position = $(bloco[i]).position();
       caixas.push({
         "id": $(bloco[i]).attr('id'),
         "nome": $(bloco[i]).find('.title').text(),
-        "valor": $(bloco[i]).find('input').val()
+        "valor": $(bloco[i]).find('input').val(),
+        "posTop": position.top,
+        "posLeft": position.left
       });
     }
-  }
-  ;
+  };
 
   //Criando o JSON das informacoes
   var valores = {

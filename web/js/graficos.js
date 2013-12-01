@@ -17,26 +17,14 @@ $(function() {
       }
     },
     tooltip: {
-      crosshairs: [true],
+      //crosshairs: [true],
       enabled: false
     },
     plotOptions: {
       series: {
         marker: {
           enabled: false
-        }/*,
-        point: {
-          events: {
-            mouseOver: function() {
-              $reporting.html('x: ' + this.x + ', y: ' + this.y);
-            }
-          }
-        },
-        events: {
-          mouseOut: function() {
-            $reporting.empty();
-          }
-        }*/
+        }
       }
     },
     credits: {
@@ -83,7 +71,6 @@ function gerarGraficos(dps) {
     for (var j = 0; j < dps[i].length; j++) {
       soma += dps[i][j].y;
     }
-    //graph.push({type: "line", name: dps[i].label, label: soma, showInLegend: true, legendText: dps[i].label, dataPoints: dps[i]});
     graph.push({id: dps[i].label, name: dps[i].label, data: dps[i]});
   };
   var chart;

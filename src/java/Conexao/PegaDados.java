@@ -28,7 +28,7 @@ public class PegaDados extends HttpServlet {
         valoresTratados.request_useragent = request.getHeader("user-agent");
         System.out.println("JSON = \t" + gson.toJson(valoresTratados));
         Conexao con = new Conexao(tipo, valoresTratados);
-        out.println("Enviado com Sucesso!");
+        out.println("Salvo com Sucesso!");
       } else if (tipo.equals("select")) {
         response.setContentType("text/json");
         String url_nome = request.getParameter("url_nome");

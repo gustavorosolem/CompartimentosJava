@@ -2,20 +2,6 @@ $(window).resize(function() {
   $('.container-geral').height($(window).height() - 70);
 }).resize();
 
-//CanvasJS
-/*var dps = [];
-var chart = new CanvasJS.Chart("grafico-container", {
-  data: [
-    {
-      type: "line",
-      dataPoints: dps
-    }
-  ]
-});
-window.onload = function() {
-  chart.render();
-};*/
-
 function atualizaGrafico() {
   var t = Number($('#t').val());
   var h = Number($('#h').val());
@@ -83,42 +69,56 @@ $(".btn-add-bloco").click(function() {
 var qtd_bloco = 1;
 //Funcao para criar os blocos dinamicamente
 function criar_bloco(origem, valores) {
+  var Div;
   if (origem === 'create') {
-    var Div = $("#bloco-modelo").clone();
+    Div = $("#bloco-modelo").clone();
     $(Div).html($(Div).html().replace('TITLE', 'x' + qtd_bloco));
     $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-x' + qtd_bloco);
     $(Div).addClass('bloco x' + qtd_bloco).attr("id", "x" + qtd_bloco).attr("data-ref", qtd_bloco).prependTo("#container-blocos");
+    criar_bloco_plumb(Div, 0, 0);
     qtd_bloco += 1;
   } else if (origem === 'load') {
-    $(".bloco").remove();
+    limpar_tudo();
     for (i = 0; i < valores.caixa.length; i++) {
-      var Div = $("#bloco-modelo").clone();
+      Div = $("#bloco-modelo").clone();
       $(Div).html($(Div).html().replace('TITLE', valores.caixa[i].nome));
       $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-' + valores.caixa[i].id);
       $(Div).addClass('bloco ' + valores.caixa[i].id).attr("id", valores.caixa[i].id).attr("data-ref", valores.caixa[i].id).prependTo("#container-blocos");
       $(Div).find('input').val(valores.caixa[i].valor);
+      criar_bloco_plumb(Div, valores.caixa[i].posLeft, valores.caixa[i].posTop);
     };
     for (i = 0; i < valores.ligacao.length; i++) {
       jsPlumb.connect({source: valores.ligacao[i].saida_id, target: valores.ligacao[i].chegada_id});
       $("#k" + valores.ligacao[i].saida_id + valores.ligacao[i].chegada_id).val(valores.ligacao[i].valor);
     };
   }
+  atualizarTudo();
+  jsPlumb.repaintEverything();
+}
+
+function criar_bloco_plumb(Div, posLeft, posTop) {
+  if (!posLeft && !posTop) {
+    posLeft = Math.floor(Math.random() * $(window).width());
+    posTop = Math.floor(Math.random() * $(window).height());
+  }
+  jsPlumb.makeSource($(Div), sourceOptions);
+  jsPlumb.makeTarget($(Div), targetOptions);
+  jsPlumb.draggable($(Div), {handle: ".drag", stack: "div", opacity: 0.8});
+  jsPlumb.animate($(Div).attr('id'), {left: posLeft, top: posTop}, {duration: "slow"});
   var chart = new Highcharts.Chart({
     chart: {
       renderTo: $(Div).find('.grafico-resultado-mini .graph')[0]
     },
     series: [{
-      data: [],
-      showInLegend: false
-    }]
+        data: [],
+        showInLegend: false
+      }]
   });
-  jsPlumb.makeSource($(Div), sourceOptions);
-  jsPlumb.makeTarget($(Div), targetOptions);
-  jsPlumb.draggable($(Div), {handle: ".drag", stack: "div", opacity: 0.8});
-  var tLeft = Math.floor(Math.random() * 800),
-      tTop = Math.floor(Math.random() * 600);
-  //jsPlumb.animate($(Div), {"left": tLeft, "top": tTop}, {duration: "slow"});
-  jsPlumb.repaintEverything();
+}
+
+function limpar_tudo() {
+  jsPlumb.detachEveryConnection();
+  $(".bloco").remove();
 }
 
 //Inicia a funcao de modificacao dos inputs

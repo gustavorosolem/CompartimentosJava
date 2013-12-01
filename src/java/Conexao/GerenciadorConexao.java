@@ -12,7 +12,6 @@ public class GerenciadorConexao {
     Connection conn = null;
     try {
       Class.forName("org.gjt.mm.mysql.Driver");
-      //conn = DriverManager.getConnection("jdbc:mysql://treewy.com:3306/treewyco_testes", "treewyco_teste", "1q2w3e");
       conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teste", "root", "1q2w3e");
     } catch (ClassNotFoundException e) {
       throw new SQLException("Driver não encontrado: ", e);

@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS `tb_registro` (
   `t` DOUBLE NULL,
   `metodo` INT(11) NULL,
   `data_criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_modificacao` TIMESTAMP NULL,
+  `request_ip` VARCHAR(45) NULL,
+  `request_useragent` VARCHAR(150) NULL,
+  `privado` TINYINT(1) NULL DEFAULT 0,
   UNIQUE INDEX `id` (`id` ASC),
   UNIQUE INDEX `url_nome_UNIQUE` (`url_nome` ASC),
   PRIMARY KEY (`id`))
@@ -28,6 +32,8 @@ CREATE TABLE IF NOT EXISTS `tb_caixa` (
   `nome` VARCHAR(32) NOT NULL,
   `valor` DOUBLE NULL,
   `internal_id` VARCHAR(32) NOT NULL,
+  `posTop` INT NULL,
+  `posLeft` INT NULL,
   `tb_registro_id` BIGINT(20) UNSIGNED NOT NULL,
   UNIQUE INDEX `id` (`id` ASC),
   PRIMARY KEY (`id`),
@@ -35,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `tb_caixa` (
   CONSTRAINT `fk_tb_caixa_tb_registro`
     FOREIGN KEY (`tb_registro_id`)
     REFERENCES `tb_registro` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

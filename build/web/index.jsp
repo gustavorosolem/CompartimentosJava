@@ -118,9 +118,6 @@
       </div><!-- /.navbar-collapse -->
     </nav>
     <div class="container-geral">
-      <!--<div class="grafico-resultado">
-        <div id="grafico-container" style="width: 600px; height: 250px;"></div>
-      </div>-->
       <div id="container-blocos"></div>
       <div id="bloco-modelo">
         <div class="drag"><span class="glyphicon glyphicon-move"></span></div>

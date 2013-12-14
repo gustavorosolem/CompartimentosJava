@@ -14,33 +14,6 @@ function atualizaGrafico() {
   };
   gerarGraficos(dps);
 
-  /*$('#grafico-container').html('');
-  var chart = new CanvasJS.Chart("grafico-container", {
-    legend: {
-      fontSize: 13,
-      fontFamily: "Arial",
-      horizontalAlign: "right",
-      verticalAlign: "bottom"
-    },
-    toolTip: {
-      shared: true,
-      content: function(e) {
-        var str = "<strong class='text-info'>Passo: " + e.entries[0].dataPoint.x.toFixed(2) + "</strong><br />";
-        var soma_bloco = 0;
-        for (var i = 0; i < e.entries.length; i++) {
-          //var  temp = e.entries[i].dataSeries.name + ": <strong>" +  e.entries[i].dataPoint.y + "</strong> - Soma: " + e.entries[i].dataSeries.label + "<br />";
-          var temp = e.entries[i].dataSeries.name + ": <strong>" + e.entries[i].dataPoint.y + "</strong><br />";
-          str = str.concat(temp);
-          soma_bloco += e.entries[i].dataPoint.y;
-        }
-        str = str.concat("<span class='text-mute'>Soma: <strong>" + soma_bloco + "</strong></span>");
-        return (str);
-      }
-    },
-    data: graph
-  });
-  chart.render();*/
-
   /* Criar tabela em HTML */
   var tabela = '<tr>';
   tabela += "<th width='150'>Passo</th>";
@@ -76,6 +49,12 @@ function criar_bloco(origem, valores) {
     $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-x' + qtd_bloco);
     $(Div).addClass('bloco x' + qtd_bloco).attr("id", "x" + qtd_bloco).attr("data-ref", qtd_bloco).prependTo("#container-blocos");
     criar_bloco_plumb(Div, 0, 0);
+    $(Div).find('.title').editable("click", function(e) {
+      if (e.value === '') {
+        e.target.html(e.old_value);
+        alert("Escreva um nome valido para o bloco");
+      }
+    });
     qtd_bloco += 1;
   } else if (origem === 'load') {
     limpar_tudo();
@@ -86,6 +65,12 @@ function criar_bloco(origem, valores) {
       $(Div).addClass('bloco ' + valores.caixa[i].id).attr("id", valores.caixa[i].id).attr("data-ref", valores.caixa[i].id).prependTo("#container-blocos");
       $(Div).find('input').val(valores.caixa[i].valor);
       criar_bloco_plumb(Div, valores.caixa[i].posLeft, valores.caixa[i].posTop);
+      $(Div).find('.title').editable("click", function(e) {
+        if (e.value === '') {
+          e.target.html(e.old_value);
+          alert("Escreva um nome valido para o bloco");
+        }
+      });
     };
     for (i = 0; i < valores.ligacao.length; i++) {
       jsPlumb.connect({source: valores.ligacao[i].saida_id, target: valores.ligacao[i].chegada_id});
@@ -98,8 +83,8 @@ function criar_bloco(origem, valores) {
 
 function criar_bloco_plumb(Div, posLeft, posTop) {
   if (!posLeft && !posTop) {
-    posLeft = Math.floor(Math.random() * $(window).width());
-    posTop = Math.floor(Math.random() * $(window).height());
+    posLeft = Math.floor(Math.random() * ($(window).width() - 200));
+    posTop = Math.floor(Math.random() * ($(window).height() - 145));
   }
   jsPlumb.makeSource($(Div), sourceOptions);
   jsPlumb.makeTarget($(Div), targetOptions);
@@ -150,12 +135,6 @@ $(document).on('click', '.yamm .dropdown-menu', function(e) {
 
 function atualizarTudo() {
   $('#container-blocos .bloco .title').each(function() {
-    $(this).editable("click", function(e) {
-      if (e.value === '') {
-        e.target.html(e.old_value);
-        alert("Escreva um nome valido para o bloco");
-      }
-    });
     $(this).tooltip({
       title: 'Clique para alterar',
       container: 'body'

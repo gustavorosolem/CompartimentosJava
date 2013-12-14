@@ -36,7 +36,6 @@ function atualizaGrafico() {
 //Funcao do botao para adicionar outro bloco
 $(".btn-add-bloco").click(function() {
   criar_bloco('create');
-  atualizarTudo();
 });
 
 var qtd_bloco = 1;
@@ -47,7 +46,7 @@ function criar_bloco(origem, valores) {
     Div = $("#bloco-modelo").clone();
     $(Div).html($(Div).html().replace('TITLE', 'x' + qtd_bloco));
     $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-x' + qtd_bloco);
-    $(Div).addClass('bloco x' + qtd_bloco).attr("id", "x" + qtd_bloco).attr("data-ref", qtd_bloco).prependTo("#container-blocos");
+    $(Div).addClass('bloco x' + qtd_bloco).attr("id", "x" + qtd_bloco).attr("data-ref", "x" + qtd_bloco).prependTo("#container-blocos");
     criar_bloco_plumb(Div, 0, 0);
     $(Div).find('.title').editable("click", function(e) {
       if (e.value === '') {
@@ -58,6 +57,7 @@ function criar_bloco(origem, valores) {
     qtd_bloco += 1;
   } else if (origem === 'load') {
     limpar_tudo();
+    var number;
     for (i = 0; i < valores.caixa.length; i++) {
       Div = $("#bloco-modelo").clone();
       $(Div).html($(Div).html().replace('TITLE', valores.caixa[i].nome));
@@ -71,6 +71,11 @@ function criar_bloco(origem, valores) {
           alert("Escreva um nome valido para o bloco");
         }
       });
+      number = Number(valores.caixa[i].id.replace('x', ''));
+      console.log(number);
+      if (number > qtd_bloco) {
+        qtd_bloco = number + 1;
+      }
     };
     for (i = 0; i < valores.ligacao.length; i++) {
       jsPlumb.connect({source: valores.ligacao[i].saida_id, target: valores.ligacao[i].chegada_id});

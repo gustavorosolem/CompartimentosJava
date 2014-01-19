@@ -72,7 +72,6 @@ function criar_bloco(origem, valores) {
         }
       });
       number = Number(valores.caixa[i].id.replace('x', ''));
-      console.log(number);
       if (number > qtd_bloco) {
         qtd_bloco = number + 1;
       }
@@ -134,7 +133,7 @@ $(document).ajaxComplete(function(event, request, settings) {
   $('.modal-backdrop').remove();
 });
 
-$(document).on('click', '.yamm .dropdown-menu', function(e) {
+$(document).on('click', '.yamm .dropdown-menu, .universo .dropdown-menu', function(e) {
   e.stopPropagation();
 });
 

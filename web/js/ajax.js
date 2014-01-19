@@ -1,6 +1,36 @@
+//Carrega as informacoes do banco
+$(document).ready(function() {
+  var url_nome = window.location.hash.replace("#", "");
+  if (url_nome) {
+    $.ajax({
+      type: form_geral.attr('method'),
+      url: form_geral.attr('action'),
+      dataType: 'json',
+      data: {tipo: 'select', url_nome: url_nome},
+      //data: form_geral.serialize(),
+      error: function(e) {
+        alert("Ocorreu um erro, tente novamente.");
+        console.log(e);
+      },
+      success: function(data) {
+        var valores = data.valores;
+        if (!valores.vazio) {
+          console.log(valores);
+          $('#h').val(valores.passo);
+          $('#periodo').val(valores.periodo);
+          $('#t').val(valores.t);
+          $("#metodo option[value=" + valores.metodo + "]").attr("selected", "selected");
+          criar_bloco('load', valores);
+          atualizaGrafico();
+        }
+      }
+    });
+  }
+});
+
 //Ajax para salvar os dados no banco
-var form = $('#salvarDados');
-form.submit(function() {
+var form_geral = $('#salvarDados');
+form_geral.submit(function() {
   //Gerar a URL
   var url_nome = window.location.hash.replace("#", "");
   if (!url_nome) {
@@ -28,7 +58,7 @@ form.submit(function() {
     }
   }
 
-  //Pega as informacoes dos compartimentos
+  //Pega as inform_geralacoes dos compartimentos
   var bloco = $(".bloco"), caixas = [], position;
   for (i = 0; i < bloco.length; i++) {
     if ($(bloco[i]).find('input').val()) {
@@ -43,7 +73,7 @@ form.submit(function() {
     }
   };
 
-  //Criando o JSON das informacoes
+  //Criando o JSON das inform_geralacoes
   var valores = {
     "url_nome": url_nome,
     "passo": Number($('#h').val()),
@@ -55,46 +85,41 @@ form.submit(function() {
   };
 
   $.ajax({
-    type: form.attr('method'),
-    url: form.attr('action'),
+    type: form_geral.attr('method'),
+    url: form_geral.attr('action'),
     data: {tipo: 'insert', valores: JSON.stringify(valores)},
     error: function(e) {
       alert("Ocorreu um erro, tente novamente.");
       console.log(e);
     },
     success: function(data) {
-      alert(data);
+      alert("Salvo com sucesso!");
     }
   });
   return false;
 });
 
-//Carrega as informacoes do banco
-$(document).ready(function() {
-  var url_nome = window.location.hash.replace("#", "");
-  if (url_nome) {
+$('#Registrar').submit(function() {
+  if ($(this).find('#inputNome').val() !== '' && $(this).find('#inputEmail').val() !== '' && $(this).find('#inputSenha').val() !== '') {
     $.ajax({
-      type: form.attr('method'),
-      url: form.attr('action'),
-      dataType: 'json',
-      data: {tipo: 'select', url_nome: url_nome},
-      //data: form.serialize(),
+      type: $(this).attr('method'),
+      url: $(this).attr('action'),
+      data: {
+        nome: $(this).find('#inputNome').val(),
+        email: $(this).find('#inputEmail').val(),
+        senha: $(this).find('#inputSenha').val()
+      },
       error: function(e) {
         alert("Ocorreu um erro, tente novamente.");
         console.log(e);
       },
       success: function(data) {
-        var valores = data.valores;
-        if (!valores.vazio) {
-          console.log(valores);
-          $('#h').val(valores.passo);
-          $('#periodo').val(valores.periodo);
-          $('#t').val(valores.t);
-          $("#metodo option[value=" + valores.metodo + "]").attr("selected", "selected");
-          criar_bloco('load', valores);
-          atualizaGrafico();
-        }
+        $('#register').modal('hide');
+        alert(data);
       }
     });
+  } else {
+    alert('O preenchimento de todos os campos é obrigatorio');
   }
+  return false;
 });

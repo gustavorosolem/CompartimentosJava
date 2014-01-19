@@ -4,13 +4,29 @@
         <servlet-name>PegaDados</servlet-name>
         <servlet-class>Conexao.PegaDados</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>processaLogin</servlet-name>
+        <servlet-class>login.ServletValidaLogin</servlet-class>
+    </servlet>
+    <servlet>
+      <servlet-name>Register</servlet-name>
+      <servlet-class>login.Register</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PegaDados</servlet-name>
         <url-pattern>/PegaDados</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>processaLogin</servlet-name>
+        <url-pattern>/validaLogin.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>Register</servlet-name>
+      <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
-        </session-timeout>
+      30
+    </session-timeout>
     </session-config>
 </web-app>

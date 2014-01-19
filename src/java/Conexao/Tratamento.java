@@ -13,6 +13,7 @@ public class Tratamento {
   String request_ip;
   String request_useragent;
   boolean privado;
+  String usuario_id;
   boolean vazio;
 }
 

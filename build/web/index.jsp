@@ -89,7 +89,7 @@
             <ul class="dropdown-menu">
               <li>
                 <div class="yamm-content">
-                  <form class="" role="form">
+                  <form class="" role="form" name="Login" action="Login" method="post">
                     <div class="form-group">
                       <input type="email" class="form-control" placeholder="Email">
                     </div>
@@ -97,7 +97,7 @@
                       <input type="password" class="form-control" placeholder="Senha">
                     </div>
                     <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-log-in"></span> Entrar</button>
-                    <a href="#" class="btn btn-info pull-right"><span class="glyphicon glyphicon-tasks"></span> Registrar-se</a>
+                    <a href="#" data-toggle="modal" data-target="#register" class="btn btn-info pull-right"><span class="glyphicon glyphicon-tasks"></span> Registrar-se</a>
                   </form>
                 </div>
               </li>
@@ -132,8 +132,17 @@
           <div class="grafico-area"></div>
         </div>
         <span class="close">&times;</span>
+        <div class="btn-group dropup universo">
+          <span data-toggle="dropdown" class="glyphicon glyphicon-globe dropdown-toggle"></span>
+          <ul class="dropdown-menu" role="menu">
+            <li class="subtitle">Universo</li>
+            <li><input class="form-control input-sm" type="text" placeholder="Entrada"></li>
+            <li><input class="form-control input-sm" type="text" placeholder="Saida"></li>
+          </ul>
+        </div>
       </div>
     </div>
+
     <!-- Modal -->
     <div class="modal fade" id="grafico-resultado" tabindex="-1" role="dialog" aria-labelledby="Grafico" aria-hidden="true">
       <div class="modal-dialog">
@@ -148,10 +157,49 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+      </div>
+    </div>
 
+    <!-- Register -->
+    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="Registrar" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Cadastro</h4>
+          </div>
+          <form class="form-horizontal" role="form" name="Register" action="Register" id="Registrar" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="inputNome" class="col-sm-2 control-label">Nome</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputNome" placeholder="Nome">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputSenha" class="col-sm-2 control-label">Senha</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="inputSenha" placeholder="Senha">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diversos -->
     <table style="margin-top: 100px;" class="table table-bordered table-hover table-condensed table-striped" id="result"></table>
     <img src="img/ajax-loader.gif" id="loading-indicator" style="position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px;" />
     <div class="modal-backdrop fade in"></div>

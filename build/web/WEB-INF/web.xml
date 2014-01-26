@@ -5,7 +5,7 @@
         <servlet-class>Conexao.PegaDados</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>processaLogin</servlet-name>
+        <servlet-name>Login</servlet-name>
         <servlet-class>login.ServletValidaLogin</servlet-class>
     </servlet>
     <servlet>
@@ -17,8 +17,8 @@
         <url-pattern>/PegaDados</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>processaLogin</servlet-name>
-        <url-pattern>/validaLogin.do</url-pattern>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
       <servlet-name>Register</servlet-name>

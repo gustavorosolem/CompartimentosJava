@@ -27,8 +27,8 @@ public class ServletValidaLogin extends HttpServlet {
     HttpSession session = request.getSession(); //obtem a sessao do usuario, caso exista
 
     Usuario user = null;
-    String login_form = request.getParameter("username"); // Pega o Login vindo do formulario
-    String senha_form = request.getParameter("password"); //Pega a senha vinda do formulario
+    String login_form = request.getParameter("email"); // Pega o Login vindo do formulario
+    String senha_form = request.getParameter("senha"); //Pega a senha vinda do formulario
 
     try {
       DaoUsuario dao = new DaoUsuario(); //cria uma instancia do DAO usuario

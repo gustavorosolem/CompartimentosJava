@@ -12,7 +12,8 @@ public class GerenciadorConexao {
     Connection conn = null;
     try {
       Class.forName("org.gjt.mm.mysql.Driver");
-      conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teste", "root", "1q2w3e");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teste", "root", "1q2w3e"); //Configuracao AWS
+      //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", ""); //Configuracao Local
     } catch (ClassNotFoundException e) {
       throw new SQLException("Driver não encontrado: ", e);
     } catch (SQLException e) {

@@ -116,6 +116,37 @@ $('#Registrar').submit(function() {
       success: function(data) {
         $('#register').modal('hide');
         alert(data);
+        //$('#Logar').find('#loginEmail').val($('#Registrar').find('#inputEmail').val());
+        //$('#Logar').find('#loginSenha').val($('#Registrar').find('#inputSenha').val());
+        //$('#Logar').find('.btn-success').click();
+      }
+    });
+  } else {
+    alert('O preenchimento de todos os campos é obrigatorio');
+  }
+  return false;
+});
+
+$('#Logar').submit(function() {
+  if ($(this).find('#loginEmail').val() !== '' && $(this).find('#loginSenha').val() !== '') {
+    $.ajax({
+      type: $(this).attr('method'),
+      url: $(this).attr('action'),
+      data: {
+        email: $(this).find('#loginEmail').val(),
+        senha: $(this).find('#loginSenha').val()
+      },
+      error: function(e) {
+        alert("Ocorreu um erro, tente novamente.");
+        console.log(e);
+      },
+      success: function(e) {
+        if (e === "true") {
+          location.reload();
+        } else {
+          alert("Email ou Senha incorretos!");
+          $('#Logar').find('input').val('');
+        }
       }
     });
   } else {

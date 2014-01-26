@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -84,17 +85,27 @@
           </ul>
         </form>
         <ul class="nav navbar-nav navbar-right">
+          <li>
+            <c:choose>
+              <c:when test="${ user eq null }">
+                <p>Login</p>
+              </c:when>
+              <c:otherwise>
+                <p>${ user.nome }</p>
+              </c:otherwise>
+            </c:choose>
+          </li>
           <li class="dropdown login">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li>
                 <div class="yamm-content">
-                  <form class="" role="form" name="Login" action="Login" method="post">
+                  <form role="form" name="Login" action="Login" id="Logar" method="post">
                     <div class="form-group">
-                      <input type="email" class="form-control" placeholder="Email" name="email">
+                      <input type="email" class="form-control" placeholder="Email" id="loginEmail" name="email">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" placeholder="Senha" name="senha">
+                      <input type="password" class="form-control" placeholder="Senha" id="loginSenha" name="senha">
                     </div>
                     <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-log-in"></span> Entrar</button>
                     <a href="#" data-toggle="modal" data-target="#register" class="btn btn-info pull-right"><span class="glyphicon glyphicon-tasks"></span> Registrar-se</a>

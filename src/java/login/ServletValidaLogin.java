@@ -25,7 +25,7 @@ public class ServletValidaLogin extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
     HttpSession session = request.getSession(); //obtem a sessao do usuario, caso exista
-
+    response.setContentType("text/html;charset=UTF-8");
     Usuario user = null;
     String login_form = request.getParameter("email"); // Pega o Login vindo do formulario
     String senha_form = request.getParameter("senha"); //Pega a senha vinda do formulario
@@ -40,13 +40,13 @@ public class ServletValidaLogin extends HttpServlet {
     //se nao encontrou usuario no banco, redireciona para a pagina de erro!
     if (user == null) {
       session.invalidate();
-      out.println("Invalido");
-      request.getRequestDispatcher("logado.jsp").forward(request, response);
+      out.print(false);
+      //request.getRequestDispatcher("logado.jsp").forward(request, response);
     } else {
       //se o dao retornar um usuario, coloca o mesmo na sessao
       session.setAttribute("user", user);
-      out.println("Logado");
-      request.getRequestDispatcher("logado.jsp").forward(request, response);
+      out.print(true);
+      //request.getRequestDispatcher("logado.jsp").forward(request, response);
     }
     out.close();
   }

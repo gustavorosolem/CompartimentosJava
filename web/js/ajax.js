@@ -116,9 +116,9 @@ $('#Registrar').submit(function() {
       success: function(data) {
         $('#register').modal('hide');
         alert(data);
-        //$('#Logar').find('#loginEmail').val($('#Registrar').find('#inputEmail').val());
-        //$('#Logar').find('#loginSenha').val($('#Registrar').find('#inputSenha').val());
-        //$('#Logar').find('.btn-success').click();
+        $('#Logar').find('#loginEmail').val($('#Registrar').find('#inputEmail').val());
+        $('#Logar').find('#loginSenha').val($('#Registrar').find('#inputSenha').val());
+        $('#Logar').find('.btn-success').click();
       }
     });
   } else {

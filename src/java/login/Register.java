@@ -33,7 +33,7 @@ public class Register extends HttpServlet {
       user.setNome(request.getParameter("nome"));
       DaoUsuario dao = new DaoUsuario(); //cria uma instancia do DAO usuario
       Boolean success = dao.setUsuario(user);
-      out.println(success);
+      out.print(success);
     } catch (SQLException ex) {
       Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
     } finally {

@@ -52,7 +52,8 @@ public class DaoUsuario {
       stm.setString(2, user.getLogin());
       stm.setString(3, user.getSenha());
       stm.setString(4, user.getEmail());
-      System.out.println("Rodou!");
+      stm.execute();
+      System.out.println("Cadastrado");
       return true;
     } catch (SQLException e) {
       System.out.println("Erro na inserção:" + e.getMessage());

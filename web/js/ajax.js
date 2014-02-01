@@ -98,6 +98,8 @@ form_geral.submit(function() {
     },
     success: function(data) {
       alert("Salvo com sucesso!");
+      $('.dropdown.user .meus-compartimentos').remove();
+      getUsuarioInfo();
     }
   });
   return false;
@@ -119,7 +121,6 @@ $('#Registrar').submit(function() {
       },
       success: function(data) {
         $('#register').modal('hide');
-        alert(data);
         $('#Logar').find('#loginEmail').val($('#Registrar').find('#inputEmail').val());
         $('#Logar').find('#loginSenha').val($('#Registrar').find('#inputSenha').val());
         $('#Logar').find('.btn-success').click();

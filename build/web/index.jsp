@@ -30,6 +30,8 @@
             <li class="sep-nav"></li>
             <li><button type="submit" class="btn btn-success navbar-btn" /><span class="glyphicon glyphicon-save"></span> Salvar Alterações</button></li>
             <li class="sep-nav"></li>
+            <li><button type="button" class="btn btn-warning navbar-btn criar-novo"><span class="glyphicon glyphicon-file"></span> Novo Projeto</button></li>
+            <li class="sep-nav"></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opções <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -66,7 +68,7 @@
                       <div class="form-group">
                         <span class="col-lg-2 control-label"></span>
                         <div class="col-lg-8">
-                          <a href="javascript:;" onclick="atualizaGrafico();" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh"></span> Forçar Atualização</a>
+                          <a href="javascript:;" onclick="atualizaGrafico();" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-refresh"></span> Forçar Atualização</a>
                         </div>
                       </div>
                     </div>

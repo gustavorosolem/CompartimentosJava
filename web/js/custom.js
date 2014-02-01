@@ -162,5 +162,13 @@ $(document).ready(function() {
 $(document).on('click', '.reload', function() {
   location.assign($(this).attr('href'));
   carregarBlocos();
-  //location.reload();
+});
+
+$(".criar-novo").click(function() {
+  var apagar = confirm("Todas as alterações que não estão salvas serão perdidas!");
+  if (apagar === true) {
+    location.assign('#');
+    limpar_tudo();
+  }
+  return false;
 });

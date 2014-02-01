@@ -29,8 +29,9 @@ public class Conexao {
       String query;
       //Insert na tabela registro
       if (id == null) {
-        query = "INSERT INTO tb_registro (url_nome, passo, periodo, t, metodo, data_modificacao, request_ip, request_useragent) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP,?,?)";
+        query = "INSERT INTO tb_registro (url_nome, passo, periodo, t, metodo, data_modificacao, request_ip, request_useragent, tb_usuario_id) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP,?,?,?)";
         stm = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        stm.setString(8, valores.usuario_id);
       } else {
         stm2 = conn.prepareStatement("DELETE FROM tb_caixa WHERE tb_registro_id = " + id);
         stm2.execute();

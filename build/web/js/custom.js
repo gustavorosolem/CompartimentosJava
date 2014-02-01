@@ -22,14 +22,16 @@ function atualizaGrafico() {
   }
   ;
   tabela += '</tr>';
-  for (var i = 0; i < dps[0].length; i++) {
-    tabela += '<tr>';
-    tabela += '<td>' + dps[0][i].x + '</td>';
-    for (var j = 0; j < dps.length; j++) {
-      tabela += '<td>' + dps[j][i].y + '</td>';
+  if (dps[0]) {
+    for (var i = 0; i < dps[0].length; i++) {
+      tabela += '<tr>';
+      tabela += '<td>' + dps[0][i].x + '</td>';
+      for (var j = 0; j < dps.length; j++) {
+        tabela += '<td>' + dps[j][i].y + '</td>';
+      };
+      tabela += '</tr>';
     };
-    tabela += '</tr>';
-  };
+  }
   $('#result').html(tabela);
 }
 
@@ -72,7 +74,7 @@ function criar_bloco(origem, valores) {
         }
       });
       number = Number(valores.caixa[i].id.replace('x', ''));
-      if (number > qtd_bloco) {
+      if (number >= qtd_bloco) {
         qtd_bloco = number + 1;
       }
     };
@@ -154,4 +156,11 @@ $('.help').tooltip({
 $(document).ready(function() {
   $('#loading-indicator').hide();
   $('.modal-backdrop').remove();
+  getUsuarioInfo();
+});
+
+$(document).on('click', '.reload', function() {
+  location.assign($(this).attr('href'));
+  carregarBlocos();
+  //location.reload();
 });

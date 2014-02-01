@@ -26,6 +26,7 @@ class Conexao_select {
         valores.t = rs.getDouble("t");
         valores.metodo = rs.getInt("metodo");
         valores.privado = rs.getBoolean("privado");
+        valores.usuario_id = rs.getString("tb_usuario_id");
         valores.vazio = false;
       }
 

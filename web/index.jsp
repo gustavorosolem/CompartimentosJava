@@ -85,16 +85,6 @@
           </ul>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li>
-            <c:choose>
-              <c:when test="${ user eq null }">
-                <p>Login</p>
-              </c:when>
-              <c:otherwise>
-                <p>${ user.nome }</p>
-              </c:otherwise>
-            </c:choose>
-          </li>
           <li class="dropdown login">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -114,17 +104,17 @@
               </li>
             </ul>
           </li>
-          <li><a href="#" class="help" data-toggle="tooltip" title="Clique em 'Adicionar Bloco' para iniciar"><span class="glyphicon glyphicon-question-sign"></span> Ajuda</a></li>
-          <!--<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+          <li class="dropdown user" style="display: none;">
+            <!--<c:choose> <c:when test="${ user eq null }"><p>Login</p></c:when><c:otherwise><p>${ user.nome }</p></c:otherwise></c:choose>-->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="nome">${ user.nome }</span> <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
               <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li role="presentation" class="dropdown-header">Dados Pessoais</li>
+              <li class="disabled"><a href="logout">Alterar Senha</a></li>
+              <li><a href="logout" class="logout">Logout</a></li>
             </ul>
-          </li>-->
+          </li>
+          <li><a href="#" class="help" data-toggle="tooltip" title="Clique em 'Adicionar Bloco' para iniciar"><span class="glyphicon glyphicon-question-sign"></span> Ajuda</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </nav>
@@ -212,7 +202,7 @@
 
     <!-- Diversos -->
     <table style="margin-top: 100px;" class="table table-bordered table-hover table-condensed table-striped" id="result"></table>
-    <img src="img/ajax-loader.gif" id="loading-indicator" style="position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px;" />
+    <img src="img/ajax-loader.gif" id="loading-indicator" style="position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px; z-index: 999;" />
     <div class="modal-backdrop fade in"></div>
 
     <!-- JS -->

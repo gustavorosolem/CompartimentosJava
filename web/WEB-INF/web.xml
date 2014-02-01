@@ -12,21 +12,37 @@
       <servlet-name>Register</servlet-name>
       <servlet-class>login.Register</servlet-class>
     </servlet>
+    <servlet>
+      <servlet-name>UsuarioInfo</servlet-name>
+      <servlet-class>login.UsuarioInfo</servlet-class>
+    </servlet>
+    <servlet>
+      <servlet-name>Logout</servlet-name>
+      <servlet-class>login.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>PegaDados</servlet-name>
-        <url-pattern>/PegaDados</url-pattern>
+      <servlet-name>PegaDados</servlet-name>
+      <url-pattern>/PegaDados</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
+      <servlet-name>Login</servlet-name>
+      <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
       <servlet-name>Register</servlet-name>
       <url-pattern>/Register</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>UsuarioInfo</servlet-name>
+      <url-pattern>/UsuarioInfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>Logout</servlet-name>
+      <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
     <session-config>
-        <session-timeout>
-      30
-    </session-timeout>
+      <session-timeout>-1</session-timeout>
     </session-config>
+
 </web-app>

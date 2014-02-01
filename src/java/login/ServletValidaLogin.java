@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import model.bean.Usuario;
 import model.dao.DaoUsuario;
 
@@ -41,12 +42,11 @@ public class ServletValidaLogin extends HttpServlet {
     if (user == null) {
       session.invalidate();
       out.print(false);
-      //request.getRequestDispatcher("logado.jsp").forward(request, response);
     } else {
       //se o dao retornar um usuario, coloca o mesmo na sessao
       session.setAttribute("user", user);
-      out.print(true);
-      //request.getRequestDispatcher("logado.jsp").forward(request, response);
+      Gson gson = new Gson();
+      out.print(gson.toJson(user));
     }
     out.close();
   }

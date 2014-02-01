@@ -1,5 +1,9 @@
 //Carrega as informacoes do banco
 $(document).ready(function() {
+  carregarBlocos();
+});
+
+function carregarBlocos() {
   var url_nome = window.location.hash.replace("#", "");
   if (url_nome) {
     $.ajax({
@@ -26,7 +30,7 @@ $(document).ready(function() {
       }
     });
   }
-});
+}
 
 //Ajax para salvar os dados no banco
 var form_geral = $('#salvarDados');
@@ -60,7 +64,7 @@ form_geral.submit(function() {
 
   //Pega as inform_geralacoes dos compartimentos
   var bloco = $(".bloco"), caixas = [], position;
-  for (i = 0; i < bloco.length; i++) {
+  for (var i = 0; i < bloco.length; i++) {
     if ($(bloco[i]).find('input').val()) {
       position = $(bloco[i]).position();
       caixas.push({
@@ -119,6 +123,9 @@ $('#Registrar').submit(function() {
         $('#Logar').find('#loginEmail').val($('#Registrar').find('#inputEmail').val());
         $('#Logar').find('#loginSenha').val($('#Registrar').find('#inputSenha').val());
         $('#Logar').find('.btn-success').click();
+        $('#register input').each(function() {
+          $(this).val('');
+        });
       }
     });
   } else {
@@ -141,16 +148,69 @@ $('#Logar').submit(function() {
         console.log(e);
       },
       success: function(e) {
-        if (e === "true") {
-          location.reload();
+        if (e !== "false") {
+          getUsuarioInfo();
+          $('#Logar input').each(function(i) {
+            $(i).val('');
+          });
         } else {
           alert("Email ou Senha incorretos!");
-          $('#Logar').find('input').val('');
+          $('#Logar #loginSenha').val('');
         }
       }
     });
   } else {
     alert('O preenchimento de todos os campos é obrigatorio');
   }
+  return false;
+});
+
+function getUsuarioInfo() {
+  $.ajax({
+    type: 'POST',
+    url: 'UsuarioInfo',
+    error: function(e) {
+      alert("Ocorreu um erro, tente novamente.");
+      console.log(e);
+    },
+    success: function(e) {
+      var data = $.parseJSON(e);
+      if (e !== "false") {
+        $('.dropdown.user .nome').text(data.nome);
+        if (data.urls) {
+          for (var i = 0; i < data.urls.length; i++) {
+            $('.dropdown.user .dropdown-menu').prepend($('<li class="meus-compartimentos"><a href="#' + data.urls[i] + '" class="reload">' + data.urls[i] + '</a></li>'));
+          }
+        }
+        $('.dropdown.user .dropdown-menu').prepend($('<li role="presentation" class="dropdown-header meus-compartimentos">Meus Projetos</li>'));
+        $('.dropdown.login').hide();
+        $('.dropdown.user').show();
+      } else {
+        $('.dropdown.login').show();
+        $('.dropdown.user').hide();
+      }
+    }
+  });
+}
+
+$(".logout").click(function() {
+  $.ajax({
+    type: 'POST',
+    url: $(this).attr('href'),
+    error: function(e) {
+      alert("Ocorreu um erro, tente novamente.");
+      console.log(e);
+    },
+    success: function(e) {
+      $('#Logar input').each(function() {
+        $(this).val('');
+      });
+      location.assign('#');
+      limpar_tudo();
+      $('.dropdown.login').show();
+      $('.dropdown.user').hide();
+      $('.dropdown.user .meus-compartimentos').remove();
+    }
+  });
   return false;
 });

@@ -1,52 +1,58 @@
-package Conexao;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package login;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.google.gson.Gson;
 import model.bean.Usuario;
+import model.dao.DaoUsuarioComp;
 
-public class PegaDados extends HttpServlet {
+/**
+ *
+ * @author Treewy-Netbook
+ */
+public class UsuarioInfo extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     try {
-      String tipo = request.getParameter("tipo");
       Gson gson = new Gson();
       HttpSession session = request.getSession();
-      Usuario user = null;
       if (session.getAttribute("user") != null) {
-        user = (model.bean.Usuario)session.getAttribute("user");
-      }
+        Usuario user = (model.bean.Usuario) session.getAttribute("user");
+        DaoUsuarioComp dao = new DaoUsuarioComp(); //cria uma instancia do DAO usuario
+        List<String> registros;
+        registros = dao.UsuarioRegistros(Integer.toString(user.getId()));
 
-      if (tipo.equals("insert")) {
-        response.setContentType("text/html;charset=UTF-8");
-        String valores = request.getParameter("valores");
-        Tratamento valoresTratados = gson.fromJson(valores, Tratamento.class);
-        valoresTratados.request_ip = request.getRemoteAddr();
-        valoresTratados.request_useragent = request.getHeader("user-agent");
-        if (user != null) {
-          valoresTratados.usuario_id = Integer.toString(user.getId());
+        final JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("nome", user.getNome());
+        final JsonArray jsonRegistrosArray = new JsonArray();
+        for (final String registro : registros) {
+          final JsonPrimitive jsonRegistro = new JsonPrimitive(registro);
+          jsonRegistrosArray.add(jsonRegistro);
         }
-        Conexao con = new Conexao(tipo, valoresTratados);
-        out.println("Salvo com Sucesso!");
-      } else if (tipo.equals("select")) {
-        response.setContentType("text/json");
-        String url_nome = request.getParameter("url_nome");
-        Conexao_select con = new Conexao_select(tipo, url_nome);
-        out.println(gson.toJson(con));
+        jsonObject.add("urls", jsonRegistrosArray);
+
+        gson.toJson(jsonObject, out);
+      } else {
+        out.print(false);
       }
-    } catch (SQLException ex) {
-      Logger.getLogger(PegaDados.class.getName()).log(Level.SEVERE, null, ex);
-      out.println("Ocorreu um erro. Tente novamente");
+    } catch (SQLException e) {
+      System.out.println("Erro:" + e.getMessage());
     } finally {
       out.close();
     }

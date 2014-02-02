@@ -79,9 +79,9 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Modelos Compartimentais <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Modelo A</a></li>
-                <li><a href="#">Modelo B</a></li>
-                <li><a href="#">Modelo C</a></li>
+                <li><a href="#modeloA" class="modelos">Modelo A</a></li>
+                <li><a href="#modeloB" class="modelos">Modelo B</a></li>
+                <li><a href="#modeloC" class="modelos">Modelo C</a></li>
               </ul>
             </li>
           </ul>

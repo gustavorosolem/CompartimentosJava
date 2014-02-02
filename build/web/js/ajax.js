@@ -11,7 +11,6 @@ function carregarBlocos() {
       url: form_geral.attr('action'),
       dataType: 'json',
       data: {tipo: 'select', url_nome: url_nome},
-      //data: form_geral.serialize(),
       error: function(e) {
         alert("Ocorreu um erro, tente novamente.");
         console.log(e);
@@ -213,5 +212,16 @@ $(".logout").click(function() {
       $('.dropdown.user .meus-compartimentos').remove();
     }
   });
+  return false;
+});
+
+$(".modelos").click(function() {
+  location.assign('#');
+  limpar_tudo();
+  var modelo = $(this).attr('href').replace("#", "");
+  $.getJSON("json/" + modelo + ".json", function(data) {
+    criar_bloco('load', data);
+  });
+  atualizaGrafico();
   return false;
 });

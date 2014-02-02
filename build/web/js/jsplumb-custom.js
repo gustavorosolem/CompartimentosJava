@@ -43,12 +43,13 @@ jsPlumb.ready(function() {
       jsPlumb.detach(info);
     } else {
       info.connection.setPaintStyle({strokeStyle: nextColour()});
-      info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa " + $(info.connection.source).attr('data-ref') + ">" + $(info.connection.target).attr('data-ref') + "' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' />");
+      info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa " + $(info.connection.source).attr('data-ref') + ">" + $(info.connection.target).attr('data-ref') + "' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' /><span class='close' data-id='" + info.connection.id + "'>&times;</span>");
     }
   });
   jsPlumb.bind("click", function(c) {
     //jsPlumb.detach(c);
   });
+
   jsPlumb.bind("jsPlumbConnection", function(connectionInfo) {
     //...update your data model here.  The contents of the 'connectionInfo' are described below.
     //http://jsplumb.tumblr.com/
@@ -68,4 +69,14 @@ $(document).on('click', '.bloco .close', function() {
   jsPlumb.detachAllConnections($(this).parent());
   $(this).parent().remove();
   jsPlumb.repaintEverything();
+});
+
+$(document).on('click', '._jsPlumb_overlay .close', function() {
+  var id = $(this).data('id');
+  jsPlumb.select().each(function(conn) {
+    if (conn.id === id) {
+      jsPlumb.detach(conn);
+    }
+  });
+  atualizaGrafico();
 });

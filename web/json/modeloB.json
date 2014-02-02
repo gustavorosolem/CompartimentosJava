@@ -1,0 +1,42 @@
+{
+  "url_nome": "modeloC",
+  "passo":0.01,
+  "periodo":4,
+  "t":0.1,
+  "metodo":1,
+  "caixa":[
+    {
+      "id":"x3",
+      "nome":"x3",
+      "valor":"2",
+      "posTop":38,
+      "posLeft":175
+    },
+    {
+      "id":"x2",
+      "nome":"x2",
+      "valor":"2",
+      "posTop":33,
+      "posLeft":878
+    },
+    {
+      "id":"x1",
+      "nome":"x1",
+      "valor":"5",
+      "posTop":38,
+      "posLeft":512
+    }
+  ],
+  "ligacao":[
+    {
+      "saida_id":"x3",
+      "chegada_id":"x1",
+      "valor":1
+    },
+    {
+      "saida_id":"x1",
+      "chegada_id":"x2",
+      "valor":1.5
+    }
+  ]
+}

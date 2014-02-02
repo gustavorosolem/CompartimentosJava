@@ -110,6 +110,7 @@ function criar_bloco_plumb(Div, posLeft, posTop) {
 function limpar_tudo() {
   jsPlumb.detachEveryConnection();
   $(".bloco").remove();
+  qtd_bloco = 1;
 }
 
 //Inicia a funcao de modificacao dos inputs
@@ -143,6 +144,12 @@ function atualizarTudo() {
   $('#container-blocos .bloco .title').each(function() {
     $(this).tooltip({
       title: 'Clique para alterar',
+      container: 'body'
+    });
+  });
+  $('#container-blocos .bloco .universo .dropdown-toggle').each(function() {
+    $(this).tooltip({
+      title: 'Alterar valores do universo',
       container: 'body'
     });
   });

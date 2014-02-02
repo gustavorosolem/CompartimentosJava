@@ -47,3 +47,6 @@ label { font-weight: normal; }
 ._jsPlumb_connector { z-index: 999; }
 ._jsPlumb_overlay { z-index: 1000 !important; }
 ._jsPlumb_overlay input { width: 90px; }
+._jsPlumb_overlay .close { position: absolute; right: -5px; top: -13px; opacity: .8; }
+._jsPlumb_overlay .close:hover { opacity: 1; }
+

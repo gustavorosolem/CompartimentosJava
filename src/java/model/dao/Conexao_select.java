@@ -1,12 +1,16 @@
-package Conexao;
+package model.dao;
 
+import Conexao.GerenciadorConexao;
+import model.bean.Ligacao;
+import model.bean.Registro;
+import model.bean.Blocos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class Conexao_select {
-  private Tratamento valores = new Tratamento();
+public class Conexao_select {
+  private Registro valores = new Registro();
   public Conexao_select(String tipo, String url_nome) throws SQLException {
     Connection conn = GerenciadorConexao.getConection();
     PreparedStatement stm = null;
@@ -64,7 +68,7 @@ class Conexao_select {
     }
   }
 
-  public Tratamento getResultado() {
+  public Registro getResultado() {
     return valores;
   }
 }

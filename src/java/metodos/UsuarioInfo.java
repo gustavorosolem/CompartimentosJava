@@ -2,40 +2,57 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package login;
+package metodos;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import model.bean.Usuario;
-import model.dao.DaoUsuario;
+import model.dao.DaoUsuarioComp;
 
 /**
  *
  * @author Treewy-Netbook
  */
-public class Register extends HttpServlet {
+public class UsuarioInfo extends HttpServlet {
+
   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     try {
-      Usuario user = new Usuario();
-      user.setLogin(request.getParameter("email"));
-      user.setEmail(request.getParameter("email"));
-      user.setSenha(request.getParameter("senha"));
-      user.setNome(request.getParameter("nome"));
-      DaoUsuario dao = new DaoUsuario(); //cria uma instancia do DAO usuario
-      Boolean success = dao.setUsuario(user);
-      out.print(success);
-    } catch (SQLException ex) {
-      Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+      Gson gson = new Gson();
+      HttpSession session = request.getSession();
+      if (session.getAttribute("user") != null) {
+        Usuario user = (model.bean.Usuario) session.getAttribute("user");
+        DaoUsuarioComp dao = new DaoUsuarioComp(); //cria uma instancia do DAO usuario
+        List<String> registros;
+        registros = dao.UsuarioRegistros(Integer.toString(user.getId()));
+
+        final JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("nome", user.getNome());
+        final JsonArray jsonRegistrosArray = new JsonArray();
+        for (final String registro : registros) {
+          final JsonPrimitive jsonRegistro = new JsonPrimitive(registro);
+          jsonRegistrosArray.add(jsonRegistro);
+        }
+        jsonObject.add("urls", jsonRegistrosArray);
+
+        gson.toJson(jsonObject, out);
+      } else {
+        out.print(false);
+      }
+    } catch (SQLException e) {
+      System.out.println("Erro:" + e.getMessage());
     } finally {
       out.close();
     }

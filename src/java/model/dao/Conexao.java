@@ -1,5 +1,7 @@
-package Conexao;
+package model.dao;
 
+import Conexao.GerenciadorConexao;
+import model.bean.Registro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +11,7 @@ import java.sql.Statement;
 public class Conexao {
   //construtor
 
-  public Conexao(String tipo, Tratamento valores) throws SQLException {
+  public Conexao(String tipo, Registro valores) throws SQLException {
     Connection conn = GerenciadorConexao.getConection();
     PreparedStatement stm = null;
     ResultSet rs = null;

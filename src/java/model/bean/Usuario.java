@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.bean;
 
-/**
- *
- * @author Treewy-Netbook
- */
 public class Usuario {
 
   private int id;

@@ -18,7 +18,6 @@ function carregarBlocos() {
       success: function(data) {
         var valores = data.valores;
         if (!valores.vazio) {
-          console.log(valores);
           $('#h').val(valores.passo);
           $('#periodo').val(valores.periodo);
           $('#t').val(valores.t);

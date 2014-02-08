@@ -178,7 +178,7 @@ function getUsuarioInfo() {
         $('.dropdown.user .nome').text(data.nome);
         if (data.urls) {
           for (var i = 0; i < data.urls.length; i++) {
-            $('.dropdown.user .dropdown-menu').prepend($('<li class="meus-compartimentos"><a href="#' + data.urls[i] + '" class="reload">' + data.urls[i] + '</a></li>'));
+            $('.dropdown.user .dropdown-menu').prepend($('<li class="meus-compartimentos"><a href="javascript:;" class="delete pull-right" data-id="' + data.urls[i] + '"><span class="glyphicon glyphicon-remove"></span></a><a href="#' + data.urls[i] + '" class="reload">' + data.urls[i] + '</a></li>'));
           }
         }
         $('.dropdown.user .dropdown-menu').prepend($('<li role="presentation" class="dropdown-header meus-compartimentos">Meus Projetos</li>'));
@@ -212,6 +212,31 @@ $(".logout").click(function() {
     }
   });
   return false;
+});
+
+$(document).on('click', '.meus-compartimentos .delete', function() {
+  var apagar = confirm("Tem certeza que deseja deletar este registro?\nEste processo não poderá ser desfeito");
+  if (apagar === true) {
+    $.ajax({
+      type: 'POST',
+      url: 'RegistroDelete',
+      data: {
+        registroId: $(this).data('id')
+      },
+      error: function(e) {
+        alert("Ocorreu um erro, tente novamente.");
+        console.log(e);
+      },
+      success: function(e) {
+        if (e === "true") {
+          $('.dropdown.user .meus-compartimentos').remove();
+          getUsuarioInfo();
+        } else {
+          alert("Voce precisa ser o dono deste registro para apaga-lo\nCaso este projeto seja seu, realize seu login");
+        }
+      }
+    });
+  }
 });
 
 $(".modelos").click(function() {

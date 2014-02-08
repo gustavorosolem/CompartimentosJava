@@ -116,7 +116,7 @@
               <li><a href="logout" class="logout">Logout</a></li>
             </ul>
           </li>
-          <li><a href="#" class="help" data-toggle="tooltip" title="Clique em 'Adicionar Bloco' para iniciar"><span class="glyphicon glyphicon-question-sign"></span> Ajuda</a></li>
+          <li><a href="javascript:;" class="help" data-toggle="tooltip" title="Clique em 'Adicionar Bloco' para iniciar"><span class="glyphicon glyphicon-question-sign"></span> Ajuda</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </nav>

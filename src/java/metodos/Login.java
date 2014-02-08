@@ -20,7 +20,7 @@ import model.dao.DaoUsuario;
  *
  * @author Treewy-Netbook
  */
-public class ServletValidaLogin extends HttpServlet {
+public class Login extends HttpServlet {
   private static final long serialVersionUID = 7633293501883840556L;
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

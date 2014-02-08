@@ -4,6 +4,21 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
 -- -----------------------------------------------------
+-- Table `tb_usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tb_usuario` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `login` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `tb_registro`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tb_registro` (
@@ -18,9 +33,16 @@ CREATE TABLE IF NOT EXISTS `tb_registro` (
   `request_ip` VARCHAR(45) NULL,
   `request_useragent` VARCHAR(150) NULL,
   `privado` TINYINT(1) NULL DEFAULT 0,
+  `tb_usuario_id` BIGINT(20) UNSIGNED NULL,
   UNIQUE INDEX `id` (`id` ASC),
   UNIQUE INDEX `url_nome_UNIQUE` (`url_nome` ASC),
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `fk_tb_registro_tb_usuario1_idx` (`tb_usuario_id` ASC),
+  CONSTRAINT `fk_tb_registro_tb_usuario1`
+    FOREIGN KEY (`tb_usuario_id`)
+    REFERENCES `tb_usuario` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/yamm.css" rel="stylesheet">
+    <link href="css/hopscotch.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet">
   </head>
   <body>
@@ -21,18 +22,18 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Compartimentos</a>
+        <a class="navbar-brand" href="#" id="logo">Compartimentos</a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <form name="PegaDados" action="PegaDados" method="post" class="form-horizontal" id="salvarDados">
           <ul class="nav navbar-nav">
-            <li><button type="button" class="btn btn-info navbar-btn btn-add-bloco"><span class="glyphicon glyphicon-inbox"></span> Adicionar Bloco</button></li>
+            <li><button type="button" class="btn btn-info navbar-btn btn-add-bloco" id="tut-step1"><span class="glyphicon glyphicon-inbox"></span> Adicionar Bloco</button></li>
             <li class="sep-nav"></li>
-            <li><button type="submit" class="btn btn-success navbar-btn" /><span class="glyphicon glyphicon-save"></span> Salvar Alterações</button></li>
+            <li><button type="submit" class="btn btn-success navbar-btn" id="tut-step2"><span class="glyphicon glyphicon-save"></span> Salvar Alterações</button></li>
             <li class="sep-nav"></li>
-            <li><button type="button" class="btn btn-warning navbar-btn criar-novo"><span class="glyphicon glyphicon-file"></span> Novo Projeto</button></li>
+            <li><button type="button" class="btn btn-warning navbar-btn criar-novo" id="tut-step3"><span class="glyphicon glyphicon-file"></span> Novo Projeto</button></li>
             <li class="sep-nav"></li>
-            <li class="dropdown">
+            <li class="dropdown" id="tut-step4">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opções <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li>
@@ -76,7 +77,7 @@
                 </li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" id="tut-step5">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Modelos Compartimentais <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#modeloA" class="modelos">Modelo A</a></li>
@@ -86,7 +87,7 @@
             </li>
           </ul>
         </form>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" id="tut-step6">
           <li class="dropdown login">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -116,7 +117,7 @@
               <li><a href="logout" class="logout">Logout</a></li>
             </ul>
           </li>
-          <li><a href="javascript:;" class="help" data-toggle="tooltip" title="Clique em 'Adicionar Bloco' para iniciar"><span class="glyphicon glyphicon-question-sign"></span> Ajuda</a></li>
+          <li><a href="javascript:;" class="help"><span class="glyphicon glyphicon-question-sign"></span> Ajuda</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </nav>
@@ -242,6 +243,7 @@
     <script src="js/jsplumb-custom.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/ajax.js"></script>
+    <script src="js/hopscotch.js"></script>
     <!-- /JS -->
   </body>
 </html>

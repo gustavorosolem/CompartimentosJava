@@ -155,9 +155,10 @@ function atualizarTudo() {
   });
 }
 
-$('.help').tooltip({
-  container: 'body',
-  placement: 'auto'
+$.getScript("json/ajuda.js", function() {
+  $('.help').click(function() {
+    hopscotch.startTour(ajuda);
+  });
 });
 
 $(document).ready(function() {

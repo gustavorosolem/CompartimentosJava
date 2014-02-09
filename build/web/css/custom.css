@@ -13,7 +13,7 @@ label { font-weight: normal; }
 
 /* Menu principal */
 .sep-nav { width: 10px; height: 10px; }
-.navbar-default .navbar-nav>.dropdown>a:hover { background-color: #EEE; }
+.navbar-default .navbar-nav>.dropdown>a:hover, .navbar-default .navbar-nav>li>a:hover { background-color: #EEE; }
 .navbar-default .navbar-nav>.dropdown>a .caret { margin-top: -2px; }
 .login .yamm-content { width: 250px; }
 .menu-principal { width: 180px; }

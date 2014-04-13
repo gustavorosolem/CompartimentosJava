@@ -131,7 +131,7 @@
           <input class="form-control input-sm" type="text" placeholder="Valor Inicial">
         </div>
         <div class="grafico-resultado-mini">
-          <div id="grafico-container-" class="graph" style="height: 60px;"></div>
+          <div id="grafico-container-" class="graph"></div>
           <div class="reporting"></div>
           <div class="grafico-area"></div>
         </div>
@@ -216,7 +216,8 @@
     <script src="js/jquery.editable.min.js"></script>
     <!-- canvas js -->
     <script src="js/canvasjs.min.js"></script>
-    <script src="js/highcharts.js"></script>
+    <!--<script src="js/highcharts.js"></script>-->
+    <script src="js/highstock.js"></script>
     <script src="js/exporting.js"></script>
     <!-- jsPlumb -->
     <script src="js/jquery.ui.touch-punch.min.js"></script>

@@ -47,7 +47,7 @@ function criar_bloco(origem, valores) {
   if (origem === 'create') {
     Div = $("#bloco-modelo").clone();
     $(Div).html($(Div).html().replace('TITLE', 'x' + qtd_bloco));
-    $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-x' + qtd_bloco);
+    $(Div).find('.grafico-resultado-mini .graph').attr('id', 'grafico-container-x' + qtd_bloco);
     $(Div).addClass('bloco x' + qtd_bloco).attr("id", "x" + qtd_bloco).attr("data-ref", "x" + qtd_bloco).prependTo("#container-blocos");
     criar_bloco_plumb(Div, 0, 0);
     $(Div).find('.title').editable("click", function(e) {
@@ -63,7 +63,7 @@ function criar_bloco(origem, valores) {
     for (i = 0; i < valores.caixa.length; i++) {
       Div = $("#bloco-modelo").clone();
       $(Div).html($(Div).html().replace('TITLE', valores.caixa[i].nome));
-      $(Div).find('.grafico-resultado-mini div').attr('id', 'grafico-container-' + valores.caixa[i].id);
+      $(Div).find('.grafico-resultado-mini .graph').attr('id', 'grafico-container-' + valores.caixa[i].id);
       $(Div).addClass('bloco ' + valores.caixa[i].id).attr("id", valores.caixa[i].id).attr("data-ref", valores.caixa[i].id).prependTo("#container-blocos");
       $(Div).find('input').val(valores.caixa[i].valor);
       criar_bloco_plumb(Div, valores.caixa[i].posLeft, valores.caixa[i].posTop);
@@ -98,7 +98,8 @@ function criar_bloco_plumb(Div, posLeft, posTop) {
   jsPlumb.animate($(Div).attr('id'), {left: posLeft, top: posTop}, {duration: "slow"});
   var chart = new Highcharts.Chart({
     chart: {
-      renderTo: $(Div).find('.grafico-resultado-mini .graph')[0]
+      renderTo: $(Div).find('.grafico-resultado-mini .graph')[0],
+      height: 40
     },
     series: [{
         data: [],

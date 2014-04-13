@@ -6,7 +6,8 @@ $(function() {
       },
       borderWidth: 1,
       borderColor: '#CCC',
-      borderRadius: 0
+      borderRadius: 0,
+      height: 40
     },
     title: {
       text: ''
@@ -17,14 +18,14 @@ $(function() {
       }
     },
     tooltip: {
-      //crosshairs: [true],
       enabled: false
     },
     plotOptions: {
       series: {
         marker: {
           enabled: false
-        }
+        },
+        turboThreshold: 0
       }
     },
     credits: {
@@ -47,15 +48,25 @@ $(function() {
   var popupChart = new Highcharts.Chart({
     chart: {
       renderTo: 'grafico-container',
-      height: 250,
-      width: 540,
-      zoomType: 'x'
+      height: 400,
+      width: 740,
+      zoomType: 'x',
+      animation: false
     },
     exporting: {
       enabled: true
     },
     tooltip: {
       enabled: true
+    },
+    scrollbar: {
+      enabled: true
+    },
+    navigator: {
+      enabled: true
+    },
+    rangeSelector: {
+      enabled: false
     },
     series: [{
         data: [],
@@ -75,17 +86,21 @@ function gerarGraficos(dps) {
   };
   var chart;
   for (var i = 0; i < graph.length; i++) {
-    chart = $('#grafico-container-' + graph[i].id).highcharts();
-    chart.series[0].update({
-      data: graph[i].data,
-      name: graph[i].name,
-      showInLegend: false
-    }, true);
+    chart = $('#grafico-container-' + graph[i].id).highcharts({
+      chart: {
+        margin: [0, 0, 0, 0]
+      },
+      series: [{
+        data: graph[i].data,
+        name: graph[i].name,
+        showInLegend: false
+      }]
+    });
   }
 }
 
 function popUpGraph(existingChart, nome) {
-  var popupChart = $('#grafico-container').highcharts();
+  var popupChart = $('#grafico-container').highcharts("StockChart");
   var data = existingChart.series[0].data;
   var newSeries = [];
   for (var i = 0; i < data.length; i++) {
@@ -93,8 +108,7 @@ function popUpGraph(existingChart, nome) {
   }
   popupChart.series[0].update({
     data: newSeries,
-    name: existingChart.series[0].name,
-    showInLegend: false
+    name: existingChart.series[0].name
   }, true);
   $('#grafico-resultado .modal-title').html(nome);
   $('#grafico-resultado').modal('show');
@@ -102,3 +116,5 @@ function popUpGraph(existingChart, nome) {
 $(document).on('click', '.grafico-area', function() {
   popUpGraph($('#' + $(this).siblings('.graph').attr('id')).highcharts(), $(this).parents('.bloco').find('.title').html());
 });
+
+/* setExtremes */

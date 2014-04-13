@@ -32,7 +32,7 @@ jsPlumb.ready(function() {
   jsPlumb.importDefaults({
     Container: $("#container-blocos"),
     Endpoint: ["Dot", {radius: 2}],
-    HoverPaintStyle: {strokeStyle: "#42a62c", lineWidth: 2},
+    HoverPaintStyle: {strokeStyle: "#000000", lineWidth: 2},
     ConnectionOverlays: [
       ["PlainArrow", {location: 1, id: "arrow", length: 10, width: 15}],
       ["Label", {label: "Ligação", id: "label"}]
@@ -43,7 +43,8 @@ jsPlumb.ready(function() {
       jsPlumb.detach(info);
     } else {
       info.connection.setPaintStyle({strokeStyle: nextColour()});
-      info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa " + $(info.connection.source).attr('data-ref') + ">" + $(info.connection.target).attr('data-ref') + "' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' /><span class='close' data-id='" + info.connection.id + "'>&times;</span>");
+      info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' /><span class='close' data-id='" + info.connection.id + "'>&times;</span>");
+      //info.connection.getOverlay("label").setLabel("<input type='text' placeholder='Taxa " + $(info.connection.source).attr('data-ref') + ">" + $(info.connection.target).attr('data-ref') + "' class='form-control input-sm' id='k" + $(info.connection.source).attr('data-ref') + $(info.connection.target).attr('data-ref') + "' /><span class='close' data-id='" + info.connection.id + "'>&times;</span>");
     }
   });
   jsPlumb.bind("click", function(c) {

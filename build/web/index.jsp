@@ -80,9 +80,12 @@
             <li class="dropdown" id="tut-step5">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Modelos Compartimentais <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#modeloA" class="modelos">Modelo A</a></li>
+                <!--<li><a href="#modeloA" class="modelos">Modelo A</a></li>
                 <li><a href="#modeloB" class="modelos">Modelo B</a></li>
-                <li><a href="#modeloC" class="modelos">Modelo C</a></li>
+                <li><a href="#modeloC" class="modelos">Modelo C</a></li>-->
+                <li><a href="#modeloCatenario" class="modelos">Modelo Catenário</a></li>
+                <li><a href="#modeloCatenarioCiclico" class="modelos">Modelo Catenário Ciclíco</a></li>
+                <li><a href="#modeloMamilar" class="modelos">Modelo Mamilar</a></li>
               </ul>
             </li>
           </ul>
@@ -215,29 +218,11 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.editable.min.js"></script>
     <!-- canvas js -->
-    <script src="js/canvasjs.min.js"></script>
-    <!--<script src="js/highcharts.js"></script>-->
     <script src="js/highstock.js"></script>
     <script src="js/exporting.js"></script>
     <!-- jsPlumb -->
     <script src="js/jquery.ui.touch-punch.min.js"></script>
     <script src="js/jquery.jsPlumb-1.5.4-min.js"></script>
-    <!-- Old jsplumb -->
-    <!--<script src="js/plumb/jsBezier-0.6-min.js"></script>
-    <script src="js/plumb/jsPlumb-util.js"></script>
-    <script src="js/plumb/jsPlumb-dom-adapter.js"></script>
-    <script src="js/plumb/jsPlumb-drag.js"></script>
-    <script src="js/plumb/jsPlumb.js"></script>
-    <script src="js/plumb/jsPlumb-endpoint.js"></script>
-    <script src="js/plumb/jsPlumb-connection.js"></script>
-    <script src="js/plumb/jsPlumb-anchors.js"></script>
-    <script src="js/plumb/jsPlumb-defaults.js"></script>
-    <script src="js/plumb/jsPlumb-connectors-statemachine.js"></script>
-    <script src="js/plumb/jsPlumb-connectors-flowchart.js"></script>
-    <script src="js/plumb/jsPlumb-renderers-svg.js"></script>
-    <script src="js/plumb/jsPlumb-renderers-canvas.js"></script>
-    <script src="js/plumb/jsPlumb-renderers-vml.js"></script>
-    <script src="js/plumb/jquery.jsPlumb.js"></script>-->
     <!-- custom -->
     <script src="js/calculos.js"></script>
     <script src="js/graficos.js"></script>

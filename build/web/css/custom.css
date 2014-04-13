@@ -33,7 +33,7 @@ label { font-weight: normal; }
 #container-blocos .bloco .drag { float: right; padding: 8px; margin: -10px -10px 0 0; cursor: move; }
 #container-blocos .bloco .start { float: left; padding: 8px; margin: -10px 0 0 -10px; cursor: move; }
 #container-blocos .bloco .close { position: absolute; bottom: 0; right: 0; padding: 5px 5px 10px; line-height: 10px; }
-#container-blocos .bloco .title { text-align: center; display: block; margin: -3px 25px 13px; line-height: 20px; overflow: hidden; }
+#container-blocos .bloco .title { text-align: center; display: block; margin: -3px 25px 5px; line-height: 20px; white-space: nowrap; overflow: hidden; }
 #container-blocos .bloco .title:hover { background: #EEE; cursor: pointer; }
 #container-blocos .bloco .title input { padding: 0; width: 35px !important; }
 #container-blocos .bloco .controls { margin: 20px 10px 0; }
@@ -49,7 +49,8 @@ label { font-weight: normal; }
 
 ._jsPlumb_connector { z-index: 999; }
 ._jsPlumb_overlay { z-index: 1000 !important; }
-._jsPlumb_overlay input { width: 90px; }
+._jsPlumb_overlay._jsPlumb_hover { z-index: 9999 !important; }
+._jsPlumb_overlay input { width: 60px; }
 ._jsPlumb_overlay .close { position: absolute; right: -5px; top: -13px; opacity: .8; }
 ._jsPlumb_overlay .close:hover { opacity: 1; }
 

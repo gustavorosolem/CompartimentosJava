@@ -23,6 +23,8 @@ label { font-weight: normal; }
 
 /* Grafico do resultado */
 #grafico-resultado .modal-dialog { width: 800px; }
+#grafico-resultado .integracao { float: right; margin-bottom: 10px; }
+#grafico-resultado .integracao .form-group { max-width: 100px; margin-left: 10px; }
 
 /* Area dos blocos */
 #bloco-modelo { display: none; }
@@ -43,8 +45,8 @@ label { font-weight: normal; }
 #container-blocos .bloco .reporting { position: absolute; top: 55px; right: 20px; font: 12px Arial, Verdana; color: #666; }
 #container-blocos .bloco .universo { position: absolute; bottom: 0; left: 0; }
 #container-blocos .bloco .universo .glyphicon { padding: 7px; cursor: pointer; }
-#container-blocos .bloco .universo .dropdown-menu { padding: 10px 10px 0; }
-#container-blocos .bloco .universo .dropdown-menu li { margin-bottom: 10px; }
+#container-blocos .bloco .universo .dropdown-menu { padding: 5px 10px; min-width: 105px; }
+#container-blocos .bloco .universo .dropdown-menu li { margin-bottom: 5px; }
 #container-blocos .bloco .universo .dropdown-menu li.subtitle { text-align: center; }
 
 ._jsPlumb_connector { z-index: 999; }

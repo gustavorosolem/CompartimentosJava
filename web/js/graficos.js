@@ -68,10 +68,18 @@ $(function() {
     rangeSelector: {
       enabled: false
     },
+    xAxis: {
+      events: {
+        setExtremes: function(e) {
+          $('.integracao #pt0').val(e.min.toFixed(3));
+          $('.integracao #pt1').val(e.max.toFixed(3));
+        }
+      }
+    },
     series: [{
-        data: [],
-        showInLegend: false
-      }]
+      data: [],
+      showInLegend: false
+    }]
   });
 });
 
@@ -100,7 +108,7 @@ function gerarGraficos(dps) {
 }
 
 function popUpGraph(existingChart, nome) {
-  var popupChart = $('#grafico-container').highcharts("StockChart");
+  var popupChart = $('#grafico-container').highcharts();
   var data = existingChart.series[0].data;
   var newSeries = [];
   for (var i = 0; i < data.length; i++) {
@@ -118,3 +126,18 @@ $(document).on('click', '.grafico-area', function() {
 });
 
 /* setExtremes */
+$(document).on('propertychange keyup input cut paste', '.integracao input', function() {
+  $(this).val(function(index, value) {
+    return value.replace(',', '.');
+  });
+  if ($.isNumeric($('.integracao #pt0').val()) === true && $.isNumeric($('.integracao #pt1').val()) === true) {
+    var chart = $('#grafico-container').highcharts();
+    chart.xAxis[0].setExtremes($('.integracao #pt0').val(), $('.integracao #pt1').val());
+  }
+});
+
+function resetExtremes() {
+  var chart = $('#grafico-container').highcharts();
+  var data = chart.xAxis[0].getExtremes();
+  chart.xAxis[0].setExtremes(data.dataMin, data.dataMax);
+}

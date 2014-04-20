@@ -67,6 +67,12 @@
                         </div>
                       </div>
                       <div class="form-group">
+                        <label for="t" class="col-lg-4 control-label">Universo</label>
+                        <div class="col-lg-8">
+                          <input name="universo" class="input-sm form-control" id="universo" type="text" placeholder="Universo" value="0" />
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <span class="col-lg-2 control-label"></span>
                         <div class="col-lg-8">
                           <a href="javascript:;" onclick="atualizaGrafico();" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-refresh"></span> Forçar Atualização</a>
@@ -159,6 +165,20 @@
             <h4 class="modal-title" id="Grafico">Gráfico</h4>
           </div>
           <div class="modal-body">
+            <div class="form-inline integracao">
+              <div class="form-group">
+                <label class="control-label">Integração</label>
+              </div>
+              <div class="form-group">
+                <input class="form-control input-sm" type="text" placeholder="Min" id="pt0" />
+              </div>
+              <div class="form-group">
+                <input class="form-control input-sm" type="text" placeholder="Max" id="pt1" />
+              </div>
+              <div class="form-group">
+                <a class="btn btn-default btn-sm" href="javascript:;" onclick="resetExtremes();" role="button">Reset</a>
+              </div>
+            </div>
             <div id="grafico-container"></div>
           </div>
           <div class="modal-footer">

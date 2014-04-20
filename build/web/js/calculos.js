@@ -39,7 +39,7 @@ var method_rkf = function(t, h) {
       var rk2 = h * kDois(val, id, entra, sai, rk1);
       var rk3 = h * kTres(val, id, entra, sai, rk2);
       var rk4 = h * kQuatro(val, id, entra, sai, rk3);
-      graph[i].push({x: t_temp, y: val});
+      graph[i].push({x: t_temp.toFixed(3), y: val});
       bloco[i].val = val * 1 + (rk1 * 1 + 2 * rk2 + 2 * rk3 + rk4 * 1) / 6;
       for (var j = 0; j < entra.length; j++) {
         if (entra[j].id === id) {
@@ -54,6 +54,7 @@ var method_rkf = function(t, h) {
       graph[i].label = id;
     }
     t_temp = h + t_temp;
+
   }
   function kUm(val, id, entra, sai) {
     var result = 0.0;

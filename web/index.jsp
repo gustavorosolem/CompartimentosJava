@@ -45,6 +45,7 @@
                           <select class="input-sm form-control" id="metodo" name="metodo">
                             <option value="1">RKF</option>
                             <option value="2">RK4</option>
+                            <option value="3">RKF Experimental</option>
                           </select>
                         </div>
                       </div>

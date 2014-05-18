@@ -11,6 +11,8 @@ function atualizaGrafico() {
   } else if (method === 2) {
     alert('Em desenvolvimento');
     //dps = method_rk4(t, h);
+  } else if (method === 3) {
+    dps = method_rkf_beta(t, h);
   };
   gerarGraficos(dps);
 

@@ -112,5 +112,197 @@ var method_rkf = function(t, h) {
     }
     return result;
   }
+  console.log(graph);
   return graph;
+};
+
+var method_rkf_beta = function(t, h) {
+  var nComp = $(".bloco").length;
+  var TOL;
+  var K = [];
+  var W = [];
+  var k = [];
+  var R = [];
+  var graph = [], bloco = [], entra = [], sai = [];
+  try {
+    for (l = 0; l < 8; l++) {
+      K.push(new Array());
+      for (j = 0; j < nComp; j++) {
+        K[l].push(0);
+      }
+    }
+    $(".bloco").each(function() {
+      if ($(this).find('input').val()) {
+        bloco.push({id: $(this).attr('id'), val: Number($(this).find('input').val())});
+      }
+    });
+    for (j = 0; j < nComp; j++) {
+      W.push(bloco[j].val);
+    }
+    for (var i = 0; i < bloco.length; i++) {
+      graph.push(new Array());
+      //Entra
+      var temp = jsPlumb.getConnections({target: bloco[i].id});
+      for (var j = 0; j < temp.length; j++) {
+        var val = $(temp[j].getOverlay("label").getLabel());
+        val = $(val).attr('id');
+        val = Number($('#' + val).val());
+        if (val) {
+          entra.push({id: bloco[i].id, id_val: bloco[i].val, val: val});
+        }
+      }
+      //Sai
+      var temp = jsPlumb.getConnections({source: bloco[i].id});
+      for (var j = 0; j < temp.length; j++) {
+        var val = $(temp[j].getOverlay("label").getLabel());
+        val = $(val).attr('id');
+        val = Number($('#' + val).val());
+        if (val) {
+          sai.push({id: bloco[i].id, id_val: bloco[i].val, val: val});
+        }
+      }
+    }
+
+    for (var i = 0; i < sai.length; i++) {
+      k.push(new Array());
+      for (var j = 0; j < entra.length; j++) {
+        k[i].push(0);
+        if (i !== j) {
+          k[i][j] = entra[j].val;//VALORES ENTRADA E SAIDA
+        }
+      }
+    }
+
+    TOL = 0.001;
+    var t = 0;
+    var tempo = [[], []];
+    var x = [[], []];
+    var a = 0;
+    var b = 100.;
+    var hMin = 0.00001;
+    var hMax = 1.0;
+    var h = hMax;
+    var delta = 0;
+    var FLAG = 1;
+    var w1 = 0, w2 = 0;
+    var c = 0;
+    for (j = 0; j < nComp; j++) {
+      R[j] = 0;
+      tempo[j][0] = 0;
+    }
+    while (FLAG === 1) {
+      for (l = 0; l < 8; l++) {
+        for (j = 0; j < nComp; j++) {
+          K[l][j] = 0;
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[0][j] = K[0][j] + h * (k[i][j] * W[i] - k[j][i] * W[j]);
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[1][j] = K[1][j] + h * (k[i][j] * (W[i] + K[0][j] / 6) - k[j][i] * (W[j] + K[0][j] / 6));
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[2][j] = K[2][j] + h * (k[i][j] * (W[i] + 4 * K[0][j] / 75 + 16 * K[1][j] / 75) - k[j][i] * (W[j] + 4 * K[0][j] / 75 + 16 * K[1][j] / 75));
+        }
+      }
+     
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[3][j] = K[3][j] + h * (k[i][j] * (W[i] + 5 * K[0][j] / 6 - 8 * K[1][j] / 3 + 5 * K[2][j] / 2) - k[j][i] * (W[j] + 5 * K[0][j] / 6 - 8 * K[1][j] / 3 + 5 * K[2][j] / 2));
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[4][j] = K[4][j] + h * (k[i][j] * (W[i] - 165 * K[0][j] / 64 + 55 * K[1][j] / 6 - 425 * K[2][j] / 64 + 85 * K[3][j] / 96) - k[j][i] * (W[j] - 165 * K[0][j] / 64 + 55 * K[1][j] / 6 - 425 * K[2][j] / 64 + 85 * K[3][j] / 96));
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[5][j] = K[5][j] + h * (k[i][j] * (W[i] + 12 * K[0][j] / 5 - 8 * K[1][j] + 4015 * K[2][j] / 612 - 11 * K[3][j] / 36 + 88 * K[4][j] / 255) - k[j][i] * (W[j] + 12 * K[0][j] / 5 - 8 * K[1][j] + 4015 * K[2][j] / 612 - 11 * K[3][j] / 36 + 88 * K[4][j] / 255));
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[6][j] = K[6][j] + h * (k[i][j] * (W[i] - 8263 * K[0][j] / 15000 + 124 * K[1][j] / 75 - 643 * K[2][j] / 680 - 81 * K[3][j] / 250 + 2484 * K[4][j] / 10625) - k[j][i] * (W[j] - 8263 * K[0][j] / 15000 + 124 * K[1][j] / 75 - 643 * K[2][j] / 680 - 81 * K[3][j] / 250 + 2484 * K[4][j] / 10625));
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+        for (i = 0; i < nComp; i++) {
+          K[7][j] = K[7][j] + h * (k[i][j] * (W[i] + 3501 * K[0][j] / 1720 - 300 * K[1][j] / 43 + 297275 * K[2][j] / 52632 - 319 * K[3][j] / 2322 + 24068 * K[4][j] / 84065 + 3850 * K[6][j] / 26703) - k[j][i] * (W[j] + 3501 * K[0][j] / 1720 - 300 * K[1][j] / 43 + 297275 * K[2][j] / 52632 - 319 * K[3][j] / 2322 + 24068 * K[4][j] / 84065 + 3850 * K[6][j] / 26703));
+        }
+      }
+
+      for (j = 0; j < nComp; j++) {
+
+        w1 = 13 * K[0][j] / 160 + 2375 * K[2][j] / 5984 + 5 * K[3][j] / 16 + 12 * K[4][j] / 85 + 3 * K[5][j] / 44;
+        w2 = 3 * K[0][j] / 40 + 875 * K[2][j] / 2244 + 23 * K[3][j] / 72 + 264 * K[4][j] / 1955 + 125 * K[6][j] / 11592 + 43 * K[7][j] / 616;
+
+        R[j] = Math.abs(w2 - w1) / h;
+
+        if (R[j] <= TOL) {
+
+          tempo[j][c] = t;
+          x[j][c] = W[j];
+
+          t = t + h;
+          W[j] = W[j] + w1;
+
+        }
+
+        delta = 0.84 * Math.pow(TOL / R[j], 0.25);
+
+        if (delta <= 0.1) {
+
+          h = 0.1 * h;
+        } else if (delta >= 4) {
+          h = 4. * h;
+
+        } else {
+          h = delta * h;
+        }//fim if(delta >=4
+
+        if (h > hMax) {
+          h = hMax;
+        }
+
+        if (tempo[j][c] >= b) {
+          FLAG = 0;
+        } else if ((tempo[j][c] + h) > b) {
+          h = b - tempo[j][c];
+        } else if (h < hMin) {
+          FLAG = 0;
+          console.log("Excedeu h mínimo!   h = " + h);
+        }
+      }//fim for(int j=...
+      //t = t + h;
+      c++;
+    }//fim while
+
+    for (i = 0; i < nComp; i++) {
+      var linha = "";
+      for (j = 0; j < (c - 1); j++) {
+        linha = linha + tempo[i][j] + "\t" + x[i][j] + "\t";
+        graph[i].push({x: tempo[i][j], y: x[i][j]});
+        graph[i].label = bloco[i].id;
+      }
+      console.log(linha);
+    }
+    console.log(graph);
+    return graph;
+  } catch (e) {
+    console.log(e);
+  }
 };

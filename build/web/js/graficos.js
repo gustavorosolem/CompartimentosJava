@@ -71,8 +71,8 @@ $(function() {
     xAxis: {
       events: {
         setExtremes: function(e) {
-          $('.integracao #pt0').val(e.min.toFixed(3));
-          $('.integracao #pt1').val(e.max.toFixed(3));
+          $('.integracao #pt0').val(e.min);
+          $('.integracao #pt1').val(e.max);
         }
       }
     },
@@ -118,6 +118,8 @@ function popUpGraph(existingChart, nome) {
     data: newSeries,
     name: existingChart.series[0].name
   }, true);
+  var dataExtremes = popupChart.xAxis[0].getExtremes();
+  popupChart.xAxis[0].setExtremes(dataExtremes.dataMin, dataExtremes.dataMax);
   $('#grafico-resultado .modal-title').html(nome);
   $('#grafico-resultado').modal('show');
 }
@@ -140,4 +142,37 @@ function resetExtremes() {
   var chart = $('#grafico-container').highcharts();
   var data = chart.xAxis[0].getExtremes();
   chart.xAxis[0].setExtremes(data.dataMin, data.dataMax);
+  $('.integracao-soma').html(0);
+}
+
+function integracaoAcumulador() {
+  var limite_inferior = Number($('.integracao #pt0').val());
+  var limite_superior = Number($('.integracao #pt1').val());
+  var soma = 0, valor;
+  var passo = Number($('#h').val());
+  var chart = $('#grafico-container').highcharts();
+  var t = limite_inferior;
+  while (t <= limite_superior && t >= limite_inferior) {
+    soma = soma + getYValue(chart, 1, t);
+    t = t + passo;
+  }
+  $('.integracao-soma').html(soma);
+}
+
+function getYValue(chartObj, seriesIndex, xValue) {
+  var yValue = null;
+  var points = chartObj.series[seriesIndex].points;
+  for (var i = 0; i < points.length; i++) {
+    if (points[i].x > xValue) {
+      break;
+    }
+    else {
+      if (points[i].x === xValue) {
+        yValue = points[i].y;
+        break;
+      }
+    }
+    yValue = points[i].y;
+  }
+  return yValue;
 }

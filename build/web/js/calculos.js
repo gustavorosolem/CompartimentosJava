@@ -296,9 +296,8 @@ var method_rkf_beta = function(t, h) {
       for (j = 0; j < (c - 1); j++) {
         linha = linha + tempo[i][j] + "\t" + x[i][j] + "\t";
         graph[i].push({x: tempo[i][j], y: x[i][j]});
-        graph[i].label = bloco[i].id;
       }
-      console.log(linha);
+      graph[i].label = bloco[i].id;
     }
     console.log(graph);
     return graph;

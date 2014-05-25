@@ -87,9 +87,6 @@
             <li class="dropdown" id="tut-step5">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Modelos Compartimentais <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <!--<li><a href="#modeloA" class="modelos">Modelo A</a></li>
-                <li><a href="#modeloB" class="modelos">Modelo B</a></li>
-                <li><a href="#modeloC" class="modelos">Modelo C</a></li>-->
                 <li><a href="#modeloCatenario" class="modelos">Modelo Catenário</a></li>
                 <li><a href="#modeloCatenarioCiclico" class="modelos">Modelo Catenário Ciclíco</a></li>
                 <li><a href="#modeloMamilar" class="modelos">Modelo Mamilar</a></li>
@@ -166,6 +163,7 @@
             <h4 class="modal-title" id="Grafico">Gráfico</h4>
           </div>
           <div class="modal-body">
+            <span class="integracao-soma pull-right"></span>
             <div class="form-inline integracao">
               <div class="form-group">
                 <label class="control-label">Integração</label>
@@ -175,6 +173,9 @@
               </div>
               <div class="form-group">
                 <input class="form-control input-sm" type="text" placeholder="Max" id="pt1" />
+              </div>
+              <div class="form-group">
+                <a class="btn btn-default btn-sm" href="javascript:;" onclick="integracaoAcumulador();" role="button">Calcular</a>
               </div>
               <div class="form-group">
                 <a class="btn btn-default btn-sm" href="javascript:;" onclick="resetExtremes();" role="button">Reset</a>

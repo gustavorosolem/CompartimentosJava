@@ -23,7 +23,7 @@ label { font-weight: normal; }
 
 /* Grafico do resultado */
 #grafico-resultado .modal-dialog { width: 800px; }
-#grafico-resultado .integracao { float: right; margin-bottom: 10px; }
+#grafico-resultado .integracao { /*float: right;*/ margin-bottom: 10px; }
 #grafico-resultado .integracao .form-group { max-width: 100px; margin-left: 10px; }
 #grafico-resultado #grafico-container { clear: both; }
 

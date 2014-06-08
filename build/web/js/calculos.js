@@ -138,10 +138,10 @@ var method_rkf_beta = function(t, h) {
     });
     for (j = 0; j < nComp; j++) {
       W.push(bloco[j].val);
-    }
-    for (var i = 0; i < bloco.length; i++) {
       graph.push(new Array());
-      //Entra
+    }
+    /*for (var i = 0; i < bloco.length; i++) {
+     //Entra
       var temp = jsPlumb.getConnections({target: bloco[i].id});
       for (var j = 0; j < temp.length; j++) {
         var val = $(temp[j].getOverlay("label").getLabel());
@@ -161,22 +161,30 @@ var method_rkf_beta = function(t, h) {
           sai.push({id: bloco[i].id, id_val: bloco[i].val, val: val});
         }
       }
-    }
+    }*/
 
-    for (var i = 0; i < sai.length; i++) {
+    var connection = jsPlumb.getConnections();
+    for (var i = 0; i < nComp; i++) {
       k.push(new Array());
-      for (var j = 0; j < entra.length; j++) {
+      for (var j = 0; j < nComp; j++) {
         k[i].push(0);
         if (i !== j) {
-          k[i][j] = entra[j].val;//VALORES ENTRADA E SAIDA
+          for (var z = 0; z < connection.length; z++) {
+            if (bloco[i].id === connection[z].sourceId && bloco[j].id === connection[z].targetId) {
+              var val = $(connection[z].getOverlay("label").getLabel());
+              val = $(val).attr('id');
+              val = Number($('#' + val).val());
+              k[i][j] = val;
+            }
+          }
         }
       }
     }
 
     TOL = 0.001;
     var t = 0;
-    var tempo = [[], []];
-    var x = [[], []];
+    var tempo = new Array();
+    var x = new Array();
     var a = 0;
     var b = 100.;
     var hMin = 0.00001;
@@ -188,6 +196,8 @@ var method_rkf_beta = function(t, h) {
     var c = 0;
     for (j = 0; j < nComp; j++) {
       R[j] = 0;
+      x[j] = new Array();
+      tempo[j] = new Array();
       tempo[j][0] = 0;
     }
     while (FLAG === 1) {
@@ -246,7 +256,7 @@ var method_rkf_beta = function(t, h) {
       }
 
       for (j = 0; j < nComp; j++) {
-
+        
         w1 = 13 * K[0][j] / 160 + 2375 * K[2][j] / 5984 + 5 * K[3][j] / 16 + 12 * K[4][j] / 85 + 3 * K[5][j] / 44;
         w2 = 3 * K[0][j] / 40 + 875 * K[2][j] / 2244 + 23 * K[3][j] / 72 + 264 * K[4][j] / 1955 + 125 * K[6][j] / 11592 + 43 * K[7][j] / 616;
 
@@ -299,7 +309,6 @@ var method_rkf_beta = function(t, h) {
       }
       graph[i].label = bloco[i].id;
     }
-    console.log(graph);
     return graph;
   } catch (e) {
     console.log(e);

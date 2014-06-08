@@ -43,13 +43,24 @@
                         <label for="t" class="col-lg-4 control-label">Método</label>
                         <div class="col-lg-8">
                           <select class="input-sm form-control" id="metodo" name="metodo">
-                            <option value="1">RKF</option>
+                            <option value="3">RKF</option>
                             <option value="2">RK4</option>
-                            <option value="3">RKF Experimental</option>
                           </select>
                         </div>
                       </div>
                       <div class="form-group">
+                        <label for="hMin" class="col-lg-4 control-label">PassoMin</label>
+                        <div class="col-lg-8">
+                          <input name="hMin" class="input-sm form-control" id="hMin" type="text" placeholder="Passo Mínimo" value="0.00001" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="hMax" class="col-lg-4 control-label">PassoMax</label>
+                        <div class="col-lg-8">
+                          <input name="hMax" class="input-sm form-control" id="hMax" type="text" placeholder="Passo Máximo" value="1.0" />
+                        </div>
+                      </div>
+                      <!--<div class="form-group">
                         <label for="h" class="col-lg-4 control-label">Passo</label>
                         <div class="col-lg-8">
                           <input name="passo" class="input-sm form-control" id="h" type="text" placeholder="H" value="0.01" />
@@ -72,7 +83,7 @@
                         <div class="col-lg-8">
                           <input name="universo" class="input-sm form-control" id="universo" type="text" placeholder="Universo" value="0" />
                         </div>
-                      </div>
+                      </div>-->
                       <div class="form-group">
                         <span class="col-lg-2 control-label"></span>
                         <div class="col-lg-8">

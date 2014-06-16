@@ -78,8 +78,10 @@ form_geral.submit(function() {
   //Criando o JSON das inform_geralacoes
   var valores = {
     "url_nome": url_nome,
-    "passo": Number($('#h').val()),
-    "periodo": Number($('#periodo').val()),
+    /*"passo": Number($('#h').val()),
+     "periodo": Number($('#periodo').val()),*/
+    "passo": Number($('#hMin').val()),
+    "periodo": Number($('#hMax').val()),
     "t": Number($('#t').val()),
     "metodo": Number($('#metodo option:selected').val()),
     "caixa": caixas,

@@ -117,7 +117,7 @@ var method_rkf = function(t, h) {
 };
 
 var method_rkf_beta = function(t, h) {
-  var nComp = $(".bloco").length;
+  var nComp = 0;
   var TOL;
   var K = [];
   var W = [];
@@ -134,6 +134,7 @@ var method_rkf_beta = function(t, h) {
     $(".bloco").each(function() {
       if ($(this).find('input').val()) {
         bloco.push({id: $(this).attr('id'), val: Number($(this).find('input').val())});
+        nComp++;
       }
     });
     for (j = 0; j < nComp; j++) {
@@ -198,7 +199,6 @@ var method_rkf_beta = function(t, h) {
       R[j] = 0;
       x[j] = new Array();
       tempo[j] = new Array();
-      tempo[j][0] = 0;
     }
     while (FLAG === 1) {
       for (l = 0; l < 8; l++) {
@@ -264,8 +264,8 @@ var method_rkf_beta = function(t, h) {
 
         if (R[j] <= TOL) {
 
-          tempo[j][c] = t;
-          x[j][c] = W[j];
+          tempo[j].push(t);
+          x[j].push(W[j]);
 
           t = t + h;
           W[j] = W[j] + w1;
@@ -288,10 +288,10 @@ var method_rkf_beta = function(t, h) {
           h = hMax;
         }
 
-        if (tempo[j][c] >= b) {
+        if (tempo[j].slice(-1)[0] >= b) {
           FLAG = 0;
-        } else if ((tempo[j][c] + h) > b) {
-          h = b - tempo[j][c];
+        } else if ((tempo[j].slice(-1)[0] + h) > b) {
+          h = b - tempo[j].slice(-1)[0];
         } else if (h < hMin) {
           FLAG = 0;
           console.log("Excedeu h mínimo!   h = " + h);
@@ -303,7 +303,7 @@ var method_rkf_beta = function(t, h) {
 
     for (i = 0; i < nComp; i++) {
       var linha = "";
-      for (j = 0; j < (c - 1); j++) {
+      for (j = 0; j < (tempo[i].length - 1); j++) {
         linha = linha + tempo[i][j] + "\t" + x[i][j] + "\t";
         graph[i].push({x: tempo[i][j], y: x[i][j]});
       }

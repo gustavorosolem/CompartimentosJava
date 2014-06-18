@@ -18,8 +18,10 @@ function carregarBlocos() {
       success: function(data) {
         var valores = data.valores;
         if (!valores.vazio) {
-          $('#h').val(valores.passo);
-          $('#periodo').val(valores.periodo);
+          /*$('#h').val(valores.passo);
+           $('#periodo').val(valores.periodo);*/
+          $('#hMin').val(valores.passo);
+          $('#hMax').val(valores.periodo);
           $('#t').val(valores.t);
           $("#metodo option[value=" + valores.metodo + "]").attr("selected", "selected");
           criar_bloco('load', valores);

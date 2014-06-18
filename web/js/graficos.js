@@ -125,6 +125,7 @@ function popUpGraph(existingChart, nome) {
 }
 $(document).on('click', '.grafico-area', function() {
   popUpGraph($('#' + $(this).siblings('.graph').attr('id')).highcharts(), $(this).parents('.bloco').find('.title').html());
+  $('.integracao-soma').html(0);
 });
 
 /* setExtremes */
@@ -136,6 +137,7 @@ $(document).on('propertychange keyup input cut paste', '.integracao input', func
     var chart = $('#grafico-container').highcharts();
     chart.xAxis[0].setExtremes($('.integracao #pt0').val(), $('.integracao #pt1').val());
   }
+  $('.integracao-soma').html(0);
 });
 
 function resetExtremes() {
@@ -149,11 +151,11 @@ function integracaoAcumulador() {
   var limite_inferior = Number($('.integracao #pt0').val());
   var limite_superior = Number($('.integracao #pt1').val());
   var soma = 0, valor;
-  var passo = Number($('#h').val());
+  var passo = 1;//Number($('#h').val());
   var chart = $('#grafico-container').highcharts();
   var t = limite_inferior;
   while (t <= limite_superior && t >= limite_inferior) {
-    soma = soma + getYValue(chart, 1, t);
+    soma = soma + (getYValue(chart, 1, t) * (t - (t - passo)));
     t = t + passo;
   }
   $('.integracao-soma').html(soma);

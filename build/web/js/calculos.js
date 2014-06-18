@@ -187,7 +187,7 @@ var method_rkf_beta = function(t, h) {
     var tempo = new Array();
     var x = new Array();
     var a = 0;
-    var b = 100.;
+    var b = 100;
     var hMin = Number($('#hMin').val().replace(/^\D+/g, ''));
     var hMax = Number($('#hMax').val().replace(/^\D+/g, ''));
     var h = hMax;
@@ -200,106 +200,108 @@ var method_rkf_beta = function(t, h) {
       x[j] = new Array();
       tempo[j] = new Array();
     }
-    while (FLAG === 1) {
-      for (l = 0; l < 8; l++) {
+    if (nComp) {
+      while (FLAG === 1) {
+        for (l = 0; l < 8; l++) {
+          for (j = 0; j < nComp; j++) {
+            K[l][j] = 0;
+          }
+        }
+
         for (j = 0; j < nComp; j++) {
-          K[l][j] = 0;
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[0][j] = K[0][j] + h * (k[i][j] * W[i] - k[j][i] * W[j]);
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[1][j] = K[1][j] + h * (k[i][j] * (W[i] + K[0][j] / 6) - k[j][i] * (W[j] + K[0][j] / 6));
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[2][j] = K[2][j] + h * (k[i][j] * (W[i] + 4 * K[0][j] / 75 + 16 * K[1][j] / 75) - k[j][i] * (W[j] + 4 * K[0][j] / 75 + 16 * K[1][j] / 75));
-        }
-      }
-     
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[3][j] = K[3][j] + h * (k[i][j] * (W[i] + 5 * K[0][j] / 6 - 8 * K[1][j] / 3 + 5 * K[2][j] / 2) - k[j][i] * (W[j] + 5 * K[0][j] / 6 - 8 * K[1][j] / 3 + 5 * K[2][j] / 2));
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[4][j] = K[4][j] + h * (k[i][j] * (W[i] - 165 * K[0][j] / 64 + 55 * K[1][j] / 6 - 425 * K[2][j] / 64 + 85 * K[3][j] / 96) - k[j][i] * (W[j] - 165 * K[0][j] / 64 + 55 * K[1][j] / 6 - 425 * K[2][j] / 64 + 85 * K[3][j] / 96));
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[5][j] = K[5][j] + h * (k[i][j] * (W[i] + 12 * K[0][j] / 5 - 8 * K[1][j] + 4015 * K[2][j] / 612 - 11 * K[3][j] / 36 + 88 * K[4][j] / 255) - k[j][i] * (W[j] + 12 * K[0][j] / 5 - 8 * K[1][j] + 4015 * K[2][j] / 612 - 11 * K[3][j] / 36 + 88 * K[4][j] / 255));
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[6][j] = K[6][j] + h * (k[i][j] * (W[i] - 8263 * K[0][j] / 15000 + 124 * K[1][j] / 75 - 643 * K[2][j] / 680 - 81 * K[3][j] / 250 + 2484 * K[4][j] / 10625) - k[j][i] * (W[j] - 8263 * K[0][j] / 15000 + 124 * K[1][j] / 75 - 643 * K[2][j] / 680 - 81 * K[3][j] / 250 + 2484 * K[4][j] / 10625));
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        for (i = 0; i < nComp; i++) {
-          K[7][j] = K[7][j] + h * (k[i][j] * (W[i] + 3501 * K[0][j] / 1720 - 300 * K[1][j] / 43 + 297275 * K[2][j] / 52632 - 319 * K[3][j] / 2322 + 24068 * K[4][j] / 84065 + 3850 * K[6][j] / 26703) - k[j][i] * (W[j] + 3501 * K[0][j] / 1720 - 300 * K[1][j] / 43 + 297275 * K[2][j] / 52632 - 319 * K[3][j] / 2322 + 24068 * K[4][j] / 84065 + 3850 * K[6][j] / 26703));
-        }
-      }
-
-      for (j = 0; j < nComp; j++) {
-        
-        w1 = 13 * K[0][j] / 160 + 2375 * K[2][j] / 5984 + 5 * K[3][j] / 16 + 12 * K[4][j] / 85 + 3 * K[5][j] / 44;
-        w2 = 3 * K[0][j] / 40 + 875 * K[2][j] / 2244 + 23 * K[3][j] / 72 + 264 * K[4][j] / 1955 + 125 * K[6][j] / 11592 + 43 * K[7][j] / 616;
-
-        R[j] = Math.abs(w2 - w1) / h;
-
-        if (R[j] <= TOL) {
-
-          tempo[j].push(t);
-          x[j].push(W[j]);
-
-          t = t + h;
-          W[j] = W[j] + w1;
-
+          for (i = 0; i < nComp; i++) {
+            K[0][j] = K[0][j] + h * (k[i][j] * W[i] - k[j][i] * W[j]);
+          }
         }
 
-        delta = 0.84 * Math.pow(TOL / R[j], 0.25);
-
-        if (delta <= 0.1) {
-
-          h = 0.1 * h;
-        } else if (delta >= 4) {
-          h = 4. * h;
-
-        } else {
-          h = delta * h;
-        }//fim if(delta >=4
-
-        if (h > hMax) {
-          h = hMax;
+        for (j = 0; j < nComp; j++) {
+          for (i = 0; i < nComp; i++) {
+            K[1][j] = K[1][j] + h * (k[i][j] * (W[i] + K[0][j] / 6) - k[j][i] * (W[j] + K[0][j] / 6));
+          }
         }
 
-        if (tempo[j].slice(-1)[0] >= b) {
-          FLAG = 0;
-        } else if ((tempo[j].slice(-1)[0] + h) > b) {
-          h = b - tempo[j].slice(-1)[0];
-        } else if (h < hMin) {
-          FLAG = 0;
-          console.log("Excedeu h mínimo!   h = " + h);
+        for (j = 0; j < nComp; j++) {
+          for (i = 0; i < nComp; i++) {
+            K[2][j] = K[2][j] + h * (k[i][j] * (W[i] + 4 * K[0][j] / 75 + 16 * K[1][j] / 75) - k[j][i] * (W[j] + 4 * K[0][j] / 75 + 16 * K[1][j] / 75));
+          }
         }
-      }//fim for(int j=...
-      //t = t + h;
-      c++;
-    }//fim while
+
+        for (j = 0; j < nComp; j++) {
+          for (i = 0; i < nComp; i++) {
+            K[3][j] = K[3][j] + h * (k[i][j] * (W[i] + 5 * K[0][j] / 6 - 8 * K[1][j] / 3 + 5 * K[2][j] / 2) - k[j][i] * (W[j] + 5 * K[0][j] / 6 - 8 * K[1][j] / 3 + 5 * K[2][j] / 2));
+          }
+        }
+
+        for (j = 0; j < nComp; j++) {
+          for (i = 0; i < nComp; i++) {
+            K[4][j] = K[4][j] + h * (k[i][j] * (W[i] - 165 * K[0][j] / 64 + 55 * K[1][j] / 6 - 425 * K[2][j] / 64 + 85 * K[3][j] / 96) - k[j][i] * (W[j] - 165 * K[0][j] / 64 + 55 * K[1][j] / 6 - 425 * K[2][j] / 64 + 85 * K[3][j] / 96));
+          }
+        }
+
+        for (j = 0; j < nComp; j++) {
+          for (i = 0; i < nComp; i++) {
+            K[5][j] = K[5][j] + h * (k[i][j] * (W[i] + 12 * K[0][j] / 5 - 8 * K[1][j] + 4015 * K[2][j] / 612 - 11 * K[3][j] / 36 + 88 * K[4][j] / 255) - k[j][i] * (W[j] + 12 * K[0][j] / 5 - 8 * K[1][j] + 4015 * K[2][j] / 612 - 11 * K[3][j] / 36 + 88 * K[4][j] / 255));
+          }
+        }
+
+        for (j = 0; j < nComp; j++) {
+          for (i = 0; i < nComp; i++) {
+            K[6][j] = K[6][j] + h * (k[i][j] * (W[i] - 8263 * K[0][j] / 15000 + 124 * K[1][j] / 75 - 643 * K[2][j] / 680 - 81 * K[3][j] / 250 + 2484 * K[4][j] / 10625) - k[j][i] * (W[j] - 8263 * K[0][j] / 15000 + 124 * K[1][j] / 75 - 643 * K[2][j] / 680 - 81 * K[3][j] / 250 + 2484 * K[4][j] / 10625));
+          }
+        }
+
+        for (j = 0; j < nComp; j++) {
+          for (i = 0; i < nComp; i++) {
+            K[7][j] = K[7][j] + h * (k[i][j] * (W[i] + 3501 * K[0][j] / 1720 - 300 * K[1][j] / 43 + 297275 * K[2][j] / 52632 - 319 * K[3][j] / 2322 + 24068 * K[4][j] / 84065 + 3850 * K[6][j] / 26703) - k[j][i] * (W[j] + 3501 * K[0][j] / 1720 - 300 * K[1][j] / 43 + 297275 * K[2][j] / 52632 - 319 * K[3][j] / 2322 + 24068 * K[4][j] / 84065 + 3850 * K[6][j] / 26703));
+          }
+        }
+
+        for (j = 0; j < nComp; j++) {
+
+          w1 = 13 * K[0][j] / 160 + 2375 * K[2][j] / 5984 + 5 * K[3][j] / 16 + 12 * K[4][j] / 85 + 3 * K[5][j] / 44;
+          w2 = 3 * K[0][j] / 40 + 875 * K[2][j] / 2244 + 23 * K[3][j] / 72 + 264 * K[4][j] / 1955 + 125 * K[6][j] / 11592 + 43 * K[7][j] / 616;
+
+          R[j] = Math.abs(w2 - w1) / h;
+
+          if (R[j] <= TOL) {
+
+            tempo[j].push(t);
+            x[j].push(W[j]);
+
+            t = t + h;
+            W[j] = W[j] + w1;
+
+          }
+
+          delta = 0.84 * Math.pow(TOL / R[j], 0.25);
+
+          if (delta <= 0.1) {
+
+            h = 0.1 * h;
+          } else if (delta >= 4) {
+            h = 4. * h;
+
+          } else {
+            h = delta * h;
+          }//fim if(delta >=4
+
+          if (h > hMax) {
+            h = hMax;
+          }
+
+          if (tempo[j].slice(-1)[0] >= b) {
+            FLAG = 0;
+          } else if ((tempo[j].slice(-1)[0] + h) > b) {
+            h = b - tempo[j].slice(-1)[0];
+          } else if (h < hMin) {
+            FLAG = 0;
+            console.log("Excedeu h mínimo!   h = " + h);
+          }
+        }//fim for(int j=...
+        //t = t + h;
+        c++;
+      }//fim while
+    }
 
     for (i = 0; i < nComp; i++) {
       var linha = "";

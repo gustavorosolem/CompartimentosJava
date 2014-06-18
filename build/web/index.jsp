@@ -154,7 +154,7 @@
           <div class="grafico-area"></div>
         </div>
         <span class="close">&times;</span>
-        <div class="btn-group dropup universo">
+        <div class="btn-group dropup universo" style="display:none;">
           <span data-toggle="dropdown" class="glyphicon glyphicon-globe dropdown-toggle"></span>
           <ul class="dropdown-menu" role="menu">
             <li class="subtitle">Universo</li>

@@ -21,8 +21,7 @@ function atualizaGrafico() {
   tabela += "<th width='150'>Passo</th>";
   for (var i = 0; i < dps.length; i++) {
     tabela += '<th>' + dps[i].label + '</th>';
-  }
-  ;
+  };
   tabela += '</tr>';
   if (dps[0]) {
     for (var i = 0; i < dps[0].length; i++) {
@@ -117,7 +116,7 @@ function limpar_tudo() {
 }
 
 //Inicia a funcao de modificacao dos inputs
-$(document).on('propertychange keyup input cut paste', '#container-blocos input, .menu-principal input', function() {
+$(document).on('propertychange keyup input cut paste', '#container-blocos input', function() {
   $(this).val(function(index, value) {
     return value.replace(',', '.');
   });

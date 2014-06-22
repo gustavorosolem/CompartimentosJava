@@ -150,13 +150,18 @@ function resetExtremes() {
 function integracaoAcumulador() {
   var limite_inferior = Number($('.integracao #pt0').val());
   var limite_superior = Number($('.integracao #pt1').val());
-  var soma = 0, valor;
-  var passo = 1;//Number($('#h').val());
+  limite_inferior = Number(limite_inferior.toFixed());
+  limite_superior = Number(limite_superior.toFixed());
   var chart = $('#grafico-container').highcharts();
-  var t = limite_inferior;
-  while (t <= limite_superior && t >= limite_inferior) {
-    soma = soma + (getYValue(chart, 1, t) * (t - (t - passo)));
-    t = t + passo;
+  var soma = 0, valor;
+  var index = chart.series[0].xData.indexOf(limite_inferior);
+  if (index < 0) {
+    limite_inferior++;
+    index = chart.series[0].xData.indexOf(limite_inferior);
+  }
+  while (chart.series[0].xData[index] <= limite_superior && chart.series[0].xData[index] >= limite_inferior && chart.series[0].xData[index + 1]) {
+    soma = soma + (chart.series[0].yData[index] * (chart.series[0].xData[index + 1] - chart.series[0].xData[index]));
+    index++;
   }
   $('.integracao-soma').html(soma);
 }

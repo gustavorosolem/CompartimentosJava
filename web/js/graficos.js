@@ -57,18 +57,45 @@ $(function() {
       enabled: true
     },
     tooltip: {
-      enabled: true
+      enabled: true,
+      useHTML: true,
+      headerFormat: '<b style="font-size: 14px;">{point.y}</b><br/>',
+      pointFormat: 'Posição: <b>{point.x}</b><br/>',
+      crosshairs: {
+        dashStyle: 'dash'
+      }
     },
     scrollbar: {
-      enabled: true
+      enabled: true,
+      liveRedraw: false
     },
     navigator: {
-      enabled: true
+      enabled: true,
+      margin: 40,
+      height: 30,
+      xAxis: {
+        labels: {
+          formatter: function() {
+            return this.value;
+          }
+        }
+      }
     },
     rangeSelector: {
       enabled: false
     },
+    plotOptions: {
+      series: {
+        cursor: 'pointer',
+        events: {
+          click: function(e) {
+
+          }
+        }
+      }
+    },
     xAxis: {
+      minRange: 1,
       events: {
         setExtremes: function(e) {
           $('.integracao #pt0').val(e.min);
@@ -150,13 +177,18 @@ function resetExtremes() {
 function integracaoAcumulador() {
   var limite_inferior = Number($('.integracao #pt0').val());
   var limite_superior = Number($('.integracao #pt1').val());
-  limite_inferior = Number(limite_inferior.toFixed());
-  limite_superior = Number(limite_superior.toFixed());
   var chart = $('#grafico-container').highcharts();
   var soma = 0, valor;
   var index = chart.series[0].xData.indexOf(limite_inferior);
   if (index < 0) {
-    limite_inferior++;
+    var closest = null;
+    var goal = limite_inferior;
+    $.each(chart.series[0].xData, function() {
+      if (closest === null || Math.abs(this - goal) < Math.abs(closest - goal)) {
+        closest = Number(this);
+        limite_inferior = Number(this);
+      }
+    });
     index = chart.series[0].xData.indexOf(limite_inferior);
   }
   while (chart.series[0].xData[index] <= limite_superior && chart.series[0].xData[index] >= limite_inferior && chart.series[0].xData[index + 1]) {

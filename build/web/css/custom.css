@@ -25,6 +25,7 @@ label { font-weight: normal; }
 #grafico-resultado .modal-dialog { width: 800px; }
 #grafico-resultado .integracao { /*float: right;*/ margin-bottom: 10px; }
 #grafico-resultado .integracao .form-group { max-width: 100px; margin-left: 10px; }
+#grafico-resultado .integracao-soma { font-weight: bold; color: #5cb85c; }
 #grafico-resultado #grafico-container { clear: both; }
 
 /* Area dos blocos */

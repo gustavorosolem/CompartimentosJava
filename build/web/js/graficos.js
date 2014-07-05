@@ -184,11 +184,12 @@ function integracaoAcumulador() {
     var closest = null;
     var goal = limite_inferior;
     $.each(chart.series[0].xData, function() {
-      if (closest === null || Math.abs(this - goal) < Math.abs(closest - goal)) {
+      if (closest === null || Math.abs(Number(this) - goal) < Math.abs(closest - goal)) {
         closest = Number(this);
         limite_inferior = Number(this);
       }
     });
+    console.log(limite_inferior);
     index = chart.series[0].xData.indexOf(limite_inferior);
   }
   while (chart.series[0].xData[index] <= limite_superior && chart.series[0].xData[index] >= limite_inferior && chart.series[0].xData[index + 1]) {

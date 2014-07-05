@@ -141,29 +141,6 @@ var method_rkf_beta = function(t, h) {
       W.push(bloco[j].val);
       graph.push(new Array());
     }
-    /*for (var i = 0; i < bloco.length; i++) {
-     //Entra
-      var temp = jsPlumb.getConnections({target: bloco[i].id});
-      for (var j = 0; j < temp.length; j++) {
-        var val = $(temp[j].getOverlay("label").getLabel());
-        val = $(val).attr('id');
-        val = Number($('#' + val).val());
-        if (val) {
-          entra.push({id: bloco[i].id, id_val: bloco[i].val, val: val});
-        }
-      }
-      //Sai
-      var temp = jsPlumb.getConnections({source: bloco[i].id});
-      for (var j = 0; j < temp.length; j++) {
-        var val = $(temp[j].getOverlay("label").getLabel());
-        val = $(val).attr('id');
-        val = Number($('#' + val).val());
-        if (val) {
-          sai.push({id: bloco[i].id, id_val: bloco[i].val, val: val});
-        }
-      }
-    }*/
-
     var connection = jsPlumb.getConnections();
     for (var i = 0; i < nComp; i++) {
       k.push(new Array());
@@ -257,7 +234,7 @@ var method_rkf_beta = function(t, h) {
         }
 
         for (j = 0; j < nComp; j++) {
-
+          //t = 0;
           w1 = 13 * K[0][j] / 160 + 2375 * K[2][j] / 5984 + 5 * K[3][j] / 16 + 12 * K[4][j] / 85 + 3 * K[5][j] / 44;
           w2 = 3 * K[0][j] / 40 + 875 * K[2][j] / 2244 + 23 * K[3][j] / 72 + 264 * K[4][j] / 1955 + 125 * K[6][j] / 11592 + 43 * K[7][j] / 616;
 
@@ -268,11 +245,12 @@ var method_rkf_beta = function(t, h) {
             tempo[j].push(t);
             x[j].push(W[j]);
 
-            t = t + h;
+            if (j === nComp - 1) {
+              t = t + h;
+            }
             W[j] = W[j] + w1;
 
           }
-
           delta = 0.84 * Math.pow(TOL / R[j], 0.25);
 
           if (delta <= 0.1) {
@@ -302,7 +280,7 @@ var method_rkf_beta = function(t, h) {
         c++;
       }//fim while
     }
-
+    
     for (i = 0; i < nComp; i++) {
       var linha = "";
       for (j = 0; j < (tempo[i].length - 1); j++) {

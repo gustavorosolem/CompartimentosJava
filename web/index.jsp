@@ -103,6 +103,14 @@
                 <li><a href="#modeloMamilar" class="modelos">Modelo Mamilar</a></li>
               </ul>
             </li>
+            <li class="dropdown" id="exportar">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exportar <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="javascript:;" class="export" data-type="xls">Salvar em XLS (Excel)</a></li>
+                <li><a href="javascript:;" class="export" data-type="txt">Salvar em TXT</a></li>
+                <li><a href="javascript:;" class="export" data-type="csv">Salvar em CSV</a></li>
+              </ul>
+            </li>
           </ul>
         </form>
         <ul class="nav navbar-nav navbar-right" id="tut-step6">
@@ -250,6 +258,7 @@
     <script src="js/jquery-ui.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.editable.min.js"></script>
+    <script src="js/jQuery.download.js"></script>
     <!-- canvas js -->
     <script src="js/highstock.js"></script>
     <script src="js/exporting.js"></script>

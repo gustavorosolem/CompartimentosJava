@@ -253,3 +253,12 @@ $(".modelos").click(function() {
   atualizaGrafico();
   return false;
 });
+
+$("#exportar .export").click(function() {
+  if (dps) {
+    $.download('Export', 'type=' + $(this).data('type') + '&dados=' + encodeURIComponent(JSON.stringify(dps)), 'POST');
+  } else {
+    alert('Nenhum compartimento encontrado.');
+  }
+  return false;
+});

@@ -248,7 +248,7 @@
     </div>
 
     <!-- Diversos -->
-    <table style="margin-top: 100px;" class="table table-bordered table-hover table-condensed table-striped" id="result"></table>
+    <!-- <table style="margin-top: 100px;" class="table table-bordered table-hover table-condensed table-striped" id="result"></table> -->
     <img src="img/ajax-loader.gif" id="loading-indicator" style="position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px; z-index: 999;" />
     <div class="modal-backdrop fade in"></div>
 

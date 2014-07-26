@@ -99,7 +99,7 @@ form_geral.submit(function() {
       console.log(e);
     },
     success: function(data) {
-      alert("Salvo com sucesso!");
+      //alert("Salvo com sucesso!");
       $('.dropdown.user .meus-compartimentos').remove();
       getUsuarioInfo();
     }
@@ -255,8 +255,20 @@ $(".modelos").click(function() {
 });
 
 $("#exportar .export").click(function() {
-  if (dps) {
-    $.download('Export', 'type=' + $(this).data('type') + '&dados=' + encodeURIComponent(JSON.stringify(dps)), 'POST');
+  $("#exportar").click();
+  var url_nome = window.location.hash.replace("#", "");
+  if (!url_nome) {
+    form_geral.submit();
+  }
+  if (dps.length) {
+    var json = {"dados": [], "url": url_nome};
+    for (var i = 0; i < dps.length; i++) {
+      json.dados.push({
+        "label": dps[i].label,
+        "pontos": dps[i]
+      });
+    }
+    $.download('Export', 'type=' + $(this).data('type') + '&dados=' + encodeURIComponent(JSON.stringify(json)), 'POST');
   } else {
     alert('Nenhum compartimento encontrado.');
   }

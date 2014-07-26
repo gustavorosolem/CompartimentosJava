@@ -17,7 +17,7 @@ function atualizaGrafico() {
   gerarGraficos(dps);
 
   /* Criar tabela em HTML */
-  var tabela = '<tr>';
+  /*var tabela = '<tr>';
   tabela += "<th width='150'>Passo</th>";
   for (var i = 0; i < dps.length; i++) {
     tabela += '<th>' + dps[i].label + '</th>';
@@ -33,7 +33,7 @@ function atualizaGrafico() {
       tabela += '</tr>';
     };
   }
-  $('#result').html(tabela);
+  $('#result').html(tabela);*/
 }
 
 //Funcao do botao para adicionar outro bloco

@@ -44,7 +44,7 @@
                         <div class="col-lg-8">
                           <select class="input-sm form-control" id="metodo" name="metodo">
                             <option value="3">RKF</option>
-                            <option value="2">RK4</option>
+                            <!--<option value="2">RK4</option>-->
                           </select>
                         </div>
                       </div>
@@ -58,6 +58,12 @@
                         <label for="hMax" class="col-lg-4 control-label">PassoMax</label>
                         <div class="col-lg-8">
                           <input name="hMax" class="input-sm form-control" id="hMax" type="text" placeholder="Passo Máximo" value="1.0" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="b" class="col-lg-4 control-label">Tempo</label>
+                        <div class="col-lg-8">
+                          <input name="b" class="input-sm form-control" id="b" type="text" placeholder="Limite Tempo" value="100" />
                         </div>
                       </div>
                       <!--<div class="form-group">
@@ -109,6 +115,7 @@
                 <li><a href="javascript:;" class="export" data-type="xls">Salvar em XLS (Excel)</a></li>
                 <li><a href="javascript:;" class="export" data-type="txt">Salvar em TXT</a></li>
                 <li><a href="javascript:;" class="export" data-type="csv">Salvar em CSV</a></li>
+                <li><a href="javascript:;" class="export" data-type="html">Visualizar HTML</a></li>
               </ul>
             </li>
           </ul>
@@ -249,6 +256,7 @@
 
     <!-- Diversos -->
     <!-- <table style="margin-top: 100px;" class="table table-bordered table-hover table-condensed table-striped" id="result"></table> -->
+    <div id="export-html" style="display: none;"><span class="glyphicon glyphicon-remove close-html"></span><table class="table table-bordered table-hover table-condensed table-striped" id="result"></table></div>
     <img src="img/ajax-loader.gif" id="loading-indicator" style="position: absolute; left: 50%; top: 50%; margin: -24px 0 0 -24px; z-index: 999;" />
     <div class="modal-backdrop fade in"></div>
 

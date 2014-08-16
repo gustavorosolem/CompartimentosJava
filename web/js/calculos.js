@@ -164,7 +164,7 @@ var method_rkf_beta = function(t, h) {
     var tempo = new Array();
     var x = new Array();
     var a = 0;
-    var b = 100;
+    var b = Number($('#b').val().replace(/^\D+/g, ''));
     var hMin = Number($('#hMin').val().replace(/^\D+/g, ''));
     var hMax = Number($('#hMax').val().replace(/^\D+/g, ''));
     var h = hMax;
@@ -234,7 +234,7 @@ var method_rkf_beta = function(t, h) {
         }
 
         for (j = 0; j < nComp; j++) {
-          //t = 0;
+          t = 0;
           w1 = 13 * K[0][j] / 160 + 2375 * K[2][j] / 5984 + 5 * K[3][j] / 16 + 12 * K[4][j] / 85 + 3 * K[5][j] / 44;
           w2 = 3 * K[0][j] / 40 + 875 * K[2][j] / 2244 + 23 * K[3][j] / 72 + 264 * K[4][j] / 1955 + 125 * K[6][j] / 11592 + 43 * K[7][j] / 616;
 
@@ -242,13 +242,18 @@ var method_rkf_beta = function(t, h) {
 
           if (R[j] <= TOL) {
 
+            if (tempo[j].length) {
+              t = tempo[j].slice(-1)[0] + h;
+            }
+
             tempo[j].push(t);
             x[j].push(W[j]);
 
-            if (j === nComp - 1) {
-              t = t + h;
-            }
             W[j] = W[j] + w1;
+
+            /*if (j === nComp - 1) {
+              t = t + h;
+            }*/
 
           }
           delta = 0.84 * Math.pow(TOL / R[j], 0.25);
@@ -283,7 +288,7 @@ var method_rkf_beta = function(t, h) {
     
     for (i = 0; i < nComp; i++) {
       var linha = "";
-      for (j = 0; j < (tempo[i].length - 1); j++) {
+      for (j = 0; j < (tempo[i].length); j++) {
         linha = linha + tempo[i][j] + "\t" + x[i][j] + "\t";
         graph[i].push({x: tempo[i][j], y: x[i][j]});
       }

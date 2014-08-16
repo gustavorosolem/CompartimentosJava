@@ -6,7 +6,6 @@ package metodos;
 
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -55,8 +54,9 @@ public class Export extends HttpServlet {
           out.writeBytes(sep + data.dados.get(i).label);
         }
         for (int i = 0; i < data.dados.get(0).pontos.size(); i++) {
-          out.writeBytes(System.getProperty("line.separator"));
+          out.writeBytes("\r\n");
           out.writeBytes(String.valueOf(data.dados.get(0).pontos.get(i).x));
+          System.out.println(data.dados.get(0).pontos.get(i));
           for (int j = 0; j < data.dados.size(); j++) {
             out.writeBytes(sep);
             out.writeBytes(String.valueOf(data.dados.get(j).pontos.get(i).y));

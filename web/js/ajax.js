@@ -22,7 +22,7 @@ function carregarBlocos() {
            $('#periodo').val(valores.periodo);*/
           $('#hMin').val(valores.passo);
           $('#hMax').val(valores.periodo);
-          $('#t').val(valores.t);
+          $('#b').val(valores.t);
           $("#metodo option[value=" + valores.metodo + "]").attr("selected", "selected");
           criar_bloco('load', valores);
           atualizaGrafico();
@@ -84,7 +84,7 @@ form_geral.submit(function() {
      "periodo": Number($('#periodo').val()),*/
     "passo": Number($('#hMin').val()),
     "periodo": Number($('#hMax').val()),
-    "t": Number($('#t').val()),
+    "t": Number($('#b').val()),
     "metodo": Number($('#metodo option:selected').val()),
     "caixa": caixas,
     "ligacao": conexoes
@@ -261,16 +261,41 @@ $("#exportar .export").click(function() {
     form_geral.submit();
   }
   if (dps.length) {
-    var json = {"dados": [], "url": url_nome};
-    for (var i = 0; i < dps.length; i++) {
-      json.dados.push({
-        "label": dps[i].label,
-        "pontos": dps[i]
-      });
+    if ($(this).data('type') !== "html") {
+      var json = {"dados": [], "url": url_nome};
+      for (var i = 0; i < dps.length; i++) {
+        json.dados.push({
+          "label": dps[i].label,
+          "pontos": dps[i]
+        });
+      }
+      $.download('Export', 'type=' + $(this).data('type') + '&dados=' + encodeURIComponent(JSON.stringify(json)), 'POST');
+    } else {
+      /* Criar tabela em HTML */
+      var tabela = '<tr>';
+      tabela += "<th width='150'>Passo</th>";
+      for (var i = 0; i < dps.length; i++) {
+        tabela += '<th>' + dps[i].label + '</th>';
+      };
+      tabela += '</tr>';
+      if (dps[0]) {
+        for (var i = 0; i < dps[0].length; i++) {
+          tabela += '<tr>';
+          tabela += '<td>' + dps[0][i].x + '</td>';
+          for (var j = 0; j < dps.length; j++) {
+            tabela += '<td>' + dps[j][i].y + '</td>';
+          };
+          tabela += '</tr>';
+        };
+      }
+      $('#result').html(tabela);
+      $('#export-html').show();
     }
-    $.download('Export', 'type=' + $(this).data('type') + '&dados=' + encodeURIComponent(JSON.stringify(json)), 'POST');
   } else {
     alert('Nenhum compartimento encontrado.');
   }
   return false;
+});
+$("#export-html .close-html").click(function() {
+  $('#export-html').hide();
 });

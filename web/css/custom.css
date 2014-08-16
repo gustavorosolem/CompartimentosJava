@@ -58,3 +58,6 @@ label { font-weight: normal; }
 ._jsPlumb_overlay .close { position: absolute; right: -5px; top: -13px; opacity: .8; }
 ._jsPlumb_overlay .close:hover { opacity: 1; }
 
+#export-html { padding: 50px; position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; background: #FFF; z-index: 999999; }
+#export-html .close-html { position: fixed; top: 5px; right: 10px; cursor: pointer; font-size: 30px; }
+#export-html .close-html:hover { opacity: .8; }

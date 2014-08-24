@@ -34,20 +34,21 @@ public class Export extends HttpServlet {
     ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
     DataOutputStream out = new DataOutputStream(byteOut);
     response.setContentType("application/octet-stream");
+    String type = request.getParameter("type");
+    String sep;
+    if (type.equals("txt")) {
+      sep = "\t";
+    } else if (type.equals("csv")) {
+      sep = ";";
+    } else {
+      sep = ";";
+    }
+    String dados = URLDecoder.decode(request.getParameter("dados"), "UTF-8");
+    Gson gson = new Gson();
+    Dados data = gson.fromJson(dados, Dados.class);
     try {
-      String type = request.getParameter("type");
-      String sep;
-      if (type.equals("txt")) {
-        sep = "\t";
-      } else if (type.equals("csv")) {
-        sep = ";";
-      } else {
-        sep = ";";
-      }
-      String dados = URLDecoder.decode(request.getParameter("dados"), "UTF-8");
-      Gson gson = new Gson();
       //Type listType = new TypeToken<LinkedList<LinkedList<Dados>>>() {}.getType();
-      Dados data = gson.fromJson(dados, Dados.class);
+      //out.writeBytes(dados);
       if (type.equals("txt") || type.equals("csv")) {
         out.writeBytes("Passo");
         for (int i = 0; i < data.dados.size(); i++) {
@@ -101,17 +102,19 @@ public class Export extends HttpServlet {
         }
         wb.write(out);
       } else {
-        response.setContentType("text/html;charset=UTF-8");
         out.writeChars("Formato não identificado");
         System.out.println(type);
       }
+    } catch (Exception e) {
+      System.out.println(e);
+      out.writeBytes(e.toString());
+    } finally {
       response.addHeader("Content-Disposition", "attachment; filename=\"compartimentos-" + data.url + "." + type + "\";");
       byte[] buf = byteOut.toByteArray();
       response.setContentLength(buf.length);
       ServletOutputStream servletOut = response.getOutputStream();
       servletOut.write(buf);
       servletOut.close();
-    } finally {
       out.flush();
       out.close();
     }

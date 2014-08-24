@@ -251,10 +251,6 @@ var method_rkf_beta = function(t, h) {
 
             W[j] = W[j] + w1;
 
-            /*if (j === nComp - 1) {
-              t = t + h;
-            }*/
-
           }
           delta = 0.84 * Math.pow(TOL / R[j], 0.25);
 
